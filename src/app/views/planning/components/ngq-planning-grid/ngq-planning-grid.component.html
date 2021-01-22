@@ -1,0 +1,131 @@
+<!-- <pre>{{ items | json }}</pre> -->
+
+<header class="hours__list" id="hoursList" #hoursList>
+	<ng-container *ngFor="let time of dateObj.hoursOfDay">
+		<div
+			class="hours__item"
+			data-x-axis="hour"
+			[attr.data-x-hour]="time.hour"
+			[attr.data-x-minute]="time.minutes"
+		>
+			{{ time.hour }}:{{ time.minutes }}
+		</div>
+	</ng-container>
+</header>
+<div
+	class="grid__wrapper"
+	id="gridWrapper"
+	#gridWrapper
+	data-y-month="06"
+	data-y-year="2020"
+	data-y-week="06"
+>
+	<div class="planning__error" *ngIf="modifiedItems.length === 0">
+		<h1>Geen planning data geladen</h1>
+	</div>
+	<aside class="days__list" id="daysList" data-y-axis="day">
+		<ng-container *ngFor="let day of modifiedItems">
+			<div
+				class="days__item"
+				data-y-axis="day"
+				[attr.data-y-day]="day.date.day"
+				[attr.data-y-month]="day.date.month"
+				[attr.data-y-year]="day.date.year"
+				[style.height]="minimal ? day.minHeight : day.height"
+			>
+				<strong
+					>{{ day.date.dayNameShort | titlecase }} {{ day.date.day }}/{{
+						day.date.month
+					}}</strong
+				>
+			</div>
+		</ng-container>
+	</aside>
+
+	<div class="grid__container" id="gridContainer" #gridContainer>
+		<ng-container *ngFor="let day of modifiedItems">
+			<div
+				class="grid__hz-item"
+				[attr.data-y-day]="day.date.day"
+				[attr.data-y-month]="day.date.month"
+				[attr.data-y-year]="day.date.year"
+			>
+				<!-- <aside
+						class="days__item"
+						data-y-axis="day"
+						[attr.data-y-day]="day.date.day"
+						[attr.data-y-month]="day.date.month"
+						[attr.data-y-year]="day.date.year"
+					>
+						<strong
+							>{{ day.date.dayNameShort | titlecase }} {{ day.date.day }}/{{
+								day.date.month
+							}}</strong
+						>
+					</aside> -->
+				<div class="shift__list">
+					<ng-container *ngFor="let shift of modifiedShifts">
+						<ngq-planning-shift-item
+							class="shift__item"
+							[attr.data-y-start]="shift.startTime"
+							[attr.data-y-end]="shift.endTime"
+							[attr.data-y-duration]="shift.duration"
+							[style.width]="shift.width"
+							[style.left]="shift.leftPos"
+						></ngq-planning-shift-item>
+					</ng-container>
+				</div>
+				<div class="timeline__list">
+					<ng-container *ngFor="let hour of dateObj.hoursOfDay">
+						<div
+							class="timeline__item"
+							data-x-axis="hour"
+							[attr.data-x-hour]="hour"
+						></div>
+					</ng-container>
+				</div>
+
+				<!-- <pre>{{ day.itemsByDay | json }}</pre> -->
+				<div class="planning__list" #planningList>
+					<ng-container *ngFor="let planningItemRow of day.itemsByDay">
+						<div
+							class="planning__row"
+							[ngClass]="{
+								'planning__row--minimal': minimal
+							}"
+						>
+							<ng-container *ngFor="let planningItem of planningItemRow">
+								<div
+									class="planning__item"
+									[attr.data-id]="planningItem.id"
+									[attr.data-y-start]="planningItem.startDate.time"
+									[attr.data-y-start-date]="planningItem.startDate.day"
+									[attr.data-y-end]="planningItem.endDate.time"
+									[attr.data-y-end-date]="planningItem.endDate.day"
+									[attr.data-y-duration]="planningItem.duration"
+									title="{{ planningItem.startDate.time }} until
+										{{ planningItem.endDate.time }}"
+									[ngClass]="{
+										'planning__item--minimal': minimal
+									}"
+									style="--bullet-color: {{ planningItem.color }}"
+									[style.width]="planningItem.width"
+									[style.left]="planningItem.leftPos"
+								>
+									<div class="planning__item-content">
+										<span *ngIf="!minimal">
+											{{ planningItem.id }} //
+											{{ planningItem.startDate.time }} t/m
+											{{ planningItem.endDate.time }}
+										</span>
+									</div>
+									<div class="planning__item-bullet"></div>
+								</div>
+							</ng-container>
+						</div>
+					</ng-container>
+				</div>
+			</div>
+		</ng-container>
+	</div>
+</div>

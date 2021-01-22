@@ -1,0 +1,17 @@
+<div class="lt__column" style="--column-width: {{ width }}">
+	<aside class="lt__title">
+		<span class="lt__column-number">
+			{{number || '0'}}
+		</span>
+		<span class="title__wrapper">
+			<strong class="title">{{ title || 'Titel' }}</strong>
+		</span>
+		<span class="button__wrapper">
+			<ngq-button class="toggle__button" icon="list" [ngClass]="{'minimal': !visible}" color="yellow-alt"
+				(click)="toggle()"></ngq-button>
+		</span>
+	</aside>
+	<ng-container *ngIf="visible">
+		<ng-content></ng-content>
+	</ng-container>
+</div>

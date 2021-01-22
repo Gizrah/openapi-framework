@@ -1,0 +1,62 @@
+:host {
+	--toPlan-size: 30px;
+	--green: #34df00;
+	--red: #e40101;
+}
+
+.sidebar {
+	&__search {
+		padding: 0.7rem;
+		&-input {
+			border: 1px solid rgba(var(--accent-rgb), 0.5);
+			height: 38px;
+			border-radius: 7px;
+			width: 100%;
+			box-sizing: border-box;
+			padding: 0.5rem;
+		}
+	}
+
+	&__filter {
+		padding: 0.5rem;
+		border-bottom: 1px solid #d9d9d9;
+	}
+}
+
+.planable {
+	&-items {
+		max-height: 100%;
+		overflow: auto;
+		table {
+			width: 100%;
+			th {
+				background: var(--primary-light);
+				color: var(--white);
+			}
+		}
+	}
+}
+
+.mat-column {
+	&-name {
+		width: 70%;
+	}
+}
+
+.value__to-plan {
+	display: inline-block;
+	width: var(--toPlan-size);
+	height: var(--toPlan-size);
+	border-radius: var(--toPlan-size);
+	background: var(--grey);
+	color: var(--white);
+	text-align: center;
+	line-height: var(--toPlan-size);
+	font-size: 85%;
+	&.plannable {
+		background: var(--red);
+	}
+	&.not-plannable {
+		background: var(--green);
+	}
+}

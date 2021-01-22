@@ -1,0 +1,383 @@
+@import 'mixins';
+
+:host {
+	display: block;
+
+	&.list {
+		&-detached {
+			@include var(background-color, box-bg);
+
+			.ngq_list {
+				padding: 1em;
+
+				&-header {
+					margin: -1em -1em 0.75em -1em;
+					width: calc(100% + 2em);
+					height: 3em;
+					box-sizing: border-box;
+
+					&-wrapper:not(.ngq_list-header-selected) {
+						@include border(border-bottom, solid, 0.0625em, app-bg);
+					}
+
+					&-selected {
+						.ngq_list-header {
+							&-item {
+								padding-left: 1em;
+								transition: all 0.2s;
+							}
+						}
+					}
+
+					&-item {
+						padding: 0 1em 0 1.35em;
+						transition: all 0.2s;
+
+						&::before {
+							width: 0.0615em;
+							height: 1.625em;
+							left: 1em;
+							top: calc(50% - 0.8125em);
+						}
+					}
+				}
+			}
+		}
+
+		&-sidebar {
+			width: 33vw;
+			max-width: 22em;
+			min-width: 18em;
+		}
+
+		&-stretch {
+			height: 100%;
+			&.list {
+				&-margin {
+					height: calc(100% - 2em);
+
+					&-half {
+						height: calc(100% - 1em);
+					}
+				}
+			}
+		}
+
+		&-margin-half {
+			margin: 0.5em;
+		}
+
+		&-margin {
+			margin: 1em;
+		}
+
+		&-embedded {
+			height: 100%;
+
+			.ngq_list {
+				&-items,
+				&-widelist {
+					height: 100%;
+				}
+			}
+		}
+	}
+}
+
+.ngq_list {
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+	align-items: stretch;
+	box-sizing: border-box;
+	height: 100%;
+
+	&-resize {
+		width: 100%;
+		height: 1px;
+		top: -1px;
+		background-color: transparent;
+		pointer-events: none;
+	}
+
+	&-header {
+		width: 100%;
+		height: 2.5rem;
+		display: block;
+		box-sizing: border-box;
+		margin-bottom: 0.25em;
+		flex: 1 0 auto;
+
+		&-wrapper {
+			display: block;
+			position: relative;
+			width: 100%;
+			height: 100%;
+			box-sizing: border-box;
+		}
+
+		&-item {
+			border-radius: 0.25em;
+			overflow: hidden;
+			height: 100%;
+			width: 100%;
+			box-sizing: border-box;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			padding: 0 1em 0 calc(1em + 0.125em);
+
+			&::before {
+				content: '';
+				width: 0.125em;
+				height: 2em;
+				display: block;
+				position: absolute;
+				left: 0;
+				top: 0.25em;
+				opacity: 1;
+				@include var(background-color, accent);
+				transition: opacity 0.2s ease-out;
+			}
+		}
+
+		&-selected {
+			cursor: default !important;
+			.ngq_list-header {
+				&-item {
+					@include gradient(accent, error, null, -60deg);
+					&::before {
+						opacity: 0;
+						transition: opacity 0.2s ease-out;
+					}
+				}
+			}
+		}
+
+		&-active {
+			cursor: pointer;
+
+			&:not(.ngq_list-header-selected) {
+				@include underline(400, true, null, null, null, '.ngq_list-header-text');
+			}
+		}
+
+		&-text {
+			font-size: 1.1rem;
+			width: fit-content;
+			height: fit-content;
+			font-weight: 400;
+			padding: 0.25em 0.25em 0.125em 0.25em;
+		}
+	}
+
+	&-search {
+		display: flex;
+		align-items: center;
+		justify-content: stretch;
+		margin-bottom: 0.3em;
+		flex: 1 0 auto;
+
+		ngq-search {
+			width: auto;
+			display: block;
+			flex-grow: 2;
+		}
+
+		ngq-button {
+			height: 1.5em;
+			width: 1.5em;
+			margin-left: 0.35em;
+			top: -0.15em;
+		}
+	}
+
+	&-actions {
+		margin-bottom: 0.5em;
+		box-sizing: border-box;
+		@include border(border, 1px, solid, info, 0.2);
+		border-radius: 0.25em;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		padding: 0.25em;
+		flex: 1 0 auto;
+
+		&-split {
+			width: 1px;
+			height: 50%;
+			@include var(background-color, accent);
+			margin: 0 0.25em;
+		}
+	}
+
+	&-headercols {
+		width: 100%;
+		height: auto;
+		box-sizing: border-box;
+		display: grid;
+		column-gap: 1em;
+		@include border(border, 1px, solid, app-bg);
+		border-right: 0;
+		flex: 1 0 auto;
+	}
+
+	&-headercol {
+		display: block;
+		font-weight: 400;
+		font-size: 0.9em;
+		text-align: center;
+		padding: 0.2em 0;
+		@include border(border-right, 1px, solid, app-bg);
+
+		&-clean {
+			border-right: 0;
+		}
+
+		&-actions {
+			display: inline-block;
+		}
+	}
+
+	&-items {
+		display: block;
+		position: relative;
+		height: 100%;
+		flex-grow: 2;
+		border-radius: 0.25em;
+		@include border(border, 1px, solid, app-bg);
+	}
+
+	&-container {
+		display: block;
+		height: 100%;
+		width: 100%;
+	}
+
+	&-item {
+		display: flex;
+		position: relative;
+		height: 2.5em;
+		width: 100%;
+		transition: all 0.2s;
+		box-sizing: border-box;
+		align-items: center;
+		justify-content: flex-start;
+		cursor: pointer;
+		@include border(border-bottom, 1px, solid, app-bg);
+		@include var(background, box-bg, 1);
+
+		&:hover:not(.ngq_list-item-selected) {
+			@include var(background, accent, 0.09);
+			transition: all 0.2s;
+		}
+
+		&-selected {
+			@include gradient();
+		}
+
+		&-expand {
+			height: 4em;
+			transition: all 0.2s;
+		}
+
+		&-content {
+			width: 100%;
+			height: 100%;
+			padding: 0.5em;
+			box-sizing: border-box;
+			display: inline-flex;
+			flex-grow: 2;
+		}
+
+		&-indent {
+			display: block;
+			width: auto;
+			text-align: right;
+		}
+
+		&-toggle {
+			margin-right: -0.25em;
+		}
+
+		&-avatar {
+			flex-shrink: 0;
+			transition: all 0.2s;
+		}
+
+		&-subactive {
+			position: absolute;
+			right: 0;
+			top: 0;
+			height: 100%;
+			width: 50%;
+			padding-right: 0.5em;
+			display: inline-flex;
+			justify-content: flex-end;
+			align-items: center;
+			@include gradient(transparent, accent, 0.2);
+		}
+
+		&-placeholder {
+			width: 100%;
+			height: 2.5em;
+			box-sizing: border-box;
+			border: 2px dashed grey;
+			@include border(border, 2px, dashed, accent);
+			@include gradient();
+		}
+
+		&-preview {
+			@include shade(null, primary, 0.25, null, 0, 0.5em);
+
+			.ngq_list-item-indent {
+				display: none;
+			}
+		}
+
+		&-draggable {
+			cursor: drag;
+		}
+
+		ngq-item-by-keys {
+			margin-left: 1em;
+			height: auto;
+		}
+	}
+
+	&-noimage {
+		.ngq_list-item {
+			ngq-item-by-keys:first-of-type {
+				margin-left: 0;
+			}
+		}
+	}
+
+	&-pagination {
+		width: 100%;
+		display: flex;
+		align-items: flex-end;
+	}
+
+	&-widelist {
+		border-radius: 0;
+		border-top: 0;
+
+		.ngq_list-item {
+			border-bottom: 0;
+
+			&:nth-child(odd):not(.ngq_list-item-selected) {
+				@include var(background-color, app-bg, 0.7);
+			}
+
+			&-selected {
+				background-color: transparent;
+			}
+
+			&:hover:not(.ngq_list-item-selected) {
+				@include var(background, accent, 0.09);
+				transition: all 0.2s;
+			}
+		}
+	}
+}

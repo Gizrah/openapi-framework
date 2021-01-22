@@ -1,0 +1,140 @@
+@import './mixins';
+
+.button-content,
+.button-icon {
+	&-warning,
+	&-error,
+	&-info,
+	&-success,
+	&-grey,
+	&-primary,
+	&-accent {
+		@include var(color, white);
+		opacity: 0.7;
+
+		&-alt {
+			opacity: 0.6;
+		}
+	}
+
+	&-dark {
+		@include var(color, text-color);
+		opacity: 0.25;
+	}
+
+	&-white-alt {
+		@include var(color, white);
+		opacity: 0.5;
+		// text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+	}
+
+	&-primary-alt {
+		@include var(color, primary);
+	}
+
+	&-accent-alt {
+		@include var(color, accent);
+	}
+
+	&-info-alt {
+		@include var(color, info);
+	}
+
+	&-warning-alt {
+		@include var(color, warning);
+	}
+
+	&-error-alt {
+		@include var(color, error);
+		// text-shadow: 0 0 8px rgba(250, 35, 35, 0.5);
+	}
+
+	&-success-alt {
+		@include var(color, success);
+	}
+
+	&-grey-alt {
+		@include var(color, 'grey');
+	}
+}
+
+.button-default {
+	&-primary {
+		@include var(background-color, primary);
+	}
+
+	&-accent {
+		@include var(background-color, accent);
+	}
+
+	&-info {
+		@include var(background-color, info);
+	}
+
+	&-warning {
+		@include var(background-color, warning);
+	}
+
+	&-error {
+		@include var(background-color, error);
+	}
+
+	&-success {
+		@include var(background-color, success);
+	}
+
+	&-grey {
+		@include var(background-color, 'grey');
+	}
+
+	&-white {
+		@include var(background-color, white, 1);
+	}
+
+	&:hover:not(.button-inactive) {
+		& *[class^='button-icon-'],
+		& *[class^='button-content-'] {
+			opacity: 1;
+		}
+	}
+
+	&.button-inactive,
+	&.button-inactive:hover,
+	&.button-disabled,
+	&.button-disabled:hover {
+		cursor: default;
+		&.button-default {
+			&-warning,
+			&-error,
+			&-info,
+			&-success,
+			&-grey,
+			&-primary,
+			&-accent {
+				@include var(background-color, text-color, 0.25);
+
+				&-alt {
+					@include var(background-color, transparent);
+				}
+			}
+		}
+
+		& *[class^='button-icon-'],
+		& *[class^='button-content-'] {
+			@include var(color, text-color, 0.5);
+			opacity: 1;
+		}
+
+		& *[class^='button-icon-'][class*='-alt'],
+		& *[class^='button-content-'][class*='-alt'] {
+			cursor: default;
+			@include var(color, text-color, 0.35);
+			opacity: 1;
+		}
+	}
+
+	&.button-disabled,
+	&.button-disabled:hover {
+		cursor: not-allowed;
+	}
+}

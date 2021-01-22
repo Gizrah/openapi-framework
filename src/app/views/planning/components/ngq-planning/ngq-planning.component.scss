@@ -1,0 +1,62 @@
+.planning {
+	&__container {
+		width: 100%;
+		height: 100%;
+		justify-self: stretch;
+		align-self: stretch;
+		box-sizing: border-box;
+		overflow: hidden;
+		display: grid;
+		grid-template-columns: 270px 1fr;
+		grid-template-rows: 100%;
+		font-size: 0.9rem;
+	}
+
+	&__sidebar {
+		border-right: 1px solid #d9d9d9;
+		box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+		z-index: 5;
+		background-color: var(--white);
+	}
+	&__wrapper {
+		background-color: var(--white);
+		overflow: hidden;
+		z-index: 4;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__filter {
+		height: 60px;
+		border-bottom: 1px solid #d9d9d9;
+		box-sizing: border-box;
+		padding: 0.8rem;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		& ngq-button {
+			margin: 0 0.25rem;
+		}
+	}
+	&__grid {
+		width: 100%;
+		height: 100%;
+		align-self: stretch;
+		justify-self: stretch;
+		overflow: hidden;
+	}
+}
+
+.filter {
+	&__date,
+	&__view {
+		display: flex;
+		flex-direction: row;
+		height: 34px;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__view {
+		justify-self: flex-end;
+	}
+}

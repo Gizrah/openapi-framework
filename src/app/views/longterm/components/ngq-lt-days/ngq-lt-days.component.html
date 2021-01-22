@@ -1,0 +1,9 @@
+<div class="days__list">
+	<div
+		class="day__item day__item--{{ day.name }}"
+		style="--day-color: {{ day.color }}"
+		*ngFor="let day of daysList"
+	>
+		{{ day.name }}
+	</div>
+</div>

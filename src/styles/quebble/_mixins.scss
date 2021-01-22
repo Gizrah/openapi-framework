@@ -1,0 +1,538 @@
+/*
+$purple-light: #3a2f43
+$purple-dark: #241c2c
+$yellow-light: #fff9eb
+$yellow-dark: #edaa0b
+$sidebar-bg: #eeeeee
+$dialog-close: #5e2332
+$text-color: #212529
+$link-color: #006eff
+$yellow-mid: #ffdd8f;
+
+*/
+
+@use "sass:string";
+@use "sass:list";
+
+$vars: (
+	primary: #241c2c,
+	primary-light: #372b43,
+	accent: #edaa0b,
+	accent-mid: #ffdd8f,
+	accent-light: #fff9eb,
+	app-bg: #eeeeee,
+	app-bg-light: #f7f7f7,
+	app-bg-hover: #f3f3f3,
+	box-bg: #ffffff,
+	dialog-close: #5e2332,
+	text-color: #212529,
+	text-light: #fafafa,
+	link-color: #006eff,
+	error: #fa2323,
+	warning: #e78f0a,
+	info: #297ac2,
+	success: #59ce06,
+	disabled: #cccccc,
+	'grey': #727272,
+	grey-light: #ddd,
+	'white': #ffffff,
+	'black': #000000,
+	'red': #ff0000,
+	'orange': #ff7f00,
+	'yellow': #ffff00,
+	'green': #00ff00,
+	'blue': #0000ff,
+	'indigo': #4b0082,
+	'violet': #8b00ff,
+);
+
+$defaults: (
+	font-size: 16px,
+	font-weight: 300,
+	line-height: 1.5,
+	font-family: (
+		'Source Sans Pro',
+		'Open Sans',
+		sans-serif,
+	),
+);
+
+@function hexToRGB($hex) {
+	@return red($hex), green($hex), blue($hex);
+}
+
+@function getColor($colorOrMap, $opacity: 1) {
+	$color: $colorOrMap;
+	$valuetype: type-of($colorOrMap);
+
+	@if $valuetype == string {
+		@if (null != map-get($vars, $colorOrMap)) {
+			$color: map-get($vars, $colorOrMap);
+		}
+	}
+
+	@if $valuetype == color {
+		@if $color == transparent {
+			$color: transparent;
+		} @else {
+			$color: $colorOrMap;
+		}
+	}
+
+	@if type-of($color) == color {
+		$color: transparentize($color, 1 - $opacity);
+	} @else {
+		$color: orange;
+	}
+
+	@return $color;
+}
+
+@function getCssVar($hashOrName, $opacity: 1) {
+	$name: $hashOrName;
+	$valuetype: type-of($hashOrName);
+
+	@if $valuetype == string and (null != map-get($vars, $hashOrName)) {
+		$name: $hashOrName;
+	} @else if $valuetype == color {
+		$name: stringReplace($hashOrName, '#', '');
+	} @else {
+		$name: $hashOrName;
+	}
+
+	@return rgba(var(#{'--#{$name}-rgb'}), $opacity);
+}
+
+@function stringReplace($string, $search, $replace: '') {
+	$valuetype: type-of($string);
+	$index: null;
+	$parsed: $string;
+
+	@if $valuetype == string {
+		$index: string.index($string, $search);
+	}
+
+	@if $index {
+		$sliced: string.slice($string, 1, $index - 1);
+		$joined: $sliced + $replace;
+		$findmore: stringReplace($joined, $search, $replace);
+		$parsed: $joined + findmore;
+	}
+
+	@return $parsed;
+}
+
+@function hasValue($val, $default) {
+	@if $val == null {
+		@return $default;
+	} @else {
+		@return $val;
+	}
+}
+
+@function listsize($m: 2rem, $c: 2, $f: rem, $w: null) {
+	$margin: hasValue($m, 2rem);
+	$column: hasValue($c, 2);
+	$gap: $column - 1;
+	$format: hasValue($f, rem);
+	$width: hasValue($w, 100vw);
+
+	$columnsize: calc((#{$width} - #{$margin} - #{$gap}#{$format}) / #{$column});
+
+	@return $columnsize;
+}
+
+@function listHasValue($list, $default) {
+	@if $list == null {
+		@return $default;
+	} @else {
+		@return $list;
+	}
+}
+
+@function listIndexOr($list, $index, $fallback: null) {
+	$length: list.length($list);
+
+	@if $length >= $index {
+		@return list.nth($list, $index);
+	} @else {
+		@if $fallback == null {
+			@return null;
+		} @else {
+			@if $length >= $fallback {
+				@return list.nth($list, $fallback);
+			} @else {
+				@return null;
+			}
+		}
+	}
+}
+
+@function toPositive($number) {
+	$iszero: $number - $number;
+	@if $iszero == 0 {
+		@return $iszero - $number;
+	} @else {
+		@return $number;
+	}
+}
+
+@mixin var($property, $var, $opacity: 1, $important: null) {
+	$color: getColor($var, $opacity);
+	$css: getCssVar($var, $opacity);
+
+	@if $important == null {
+		#{$property}: #{$color};
+		#{$property}: #{$css};
+	} @else {
+		#{$property}: #{$color} !important;
+		#{$property}: #{$css} !important;
+	}
+}
+
+@mixin border($property, $width, $type, $var, $opacity: 1, $important: null) {
+	$color: getColor($var, $opacity);
+	$css: getCssVar($var, $opacity);
+
+	@if $important {
+		#{$property}: $width $type $color !important;
+		#{$property}: $width $type $css !important;
+	} @else {
+		#{$property}: $width $type $color;
+		#{$property}: $width $type $css;
+	}
+}
+
+@mixin gradient($f: accent, $t: error, $o: 0.1, $d: to right) {
+	$opac: 0.1;
+	$from: hasValue($f, accent);
+	$to: hasValue($t, error);
+	$opacity: hasValue($o, 0.1);
+	$direction: hasValue($d, to right);
+
+	$colorF: getColor($from, $opacity);
+	$colorT: getColor($to, $opacity);
+
+	background-image: -moz-linear-gradient($direction, $colorF 0%, $colorT 100%);
+	background-image: -webkit-linear-gradient($direction, $colorF 0%, $colorT 100%);
+	background-image: linear-gradient($direction, $colorF 0%, $colorT 100%);
+	// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{ie_hex_str($colorF)}', endColorstr='#{ie_hex_str($colorT)}',GradientType=1 );
+}
+
+@mixin shade($i: null, $c: null, $o: null, $x: null, $y: null, $s: null) {
+	$important: hasValue($i, null);
+	$var: hasValue($c, null);
+	$opacity: hasValue($o, 0.15);
+	$axisX: hasValue($x, 0);
+	$axisY: hasValue($y, 0.1875rem);
+	$spread: hasValue($s, 0.1875rem);
+
+	$color: rgba(0, 0, 0, $opacity);
+
+	@if $var {
+		$color: rgba(map-get($vars, $var), $opacity);
+	}
+
+	@if $important {
+		box-shadow: $axisX $axisY $spread $color !important;
+	} @else {
+		box-shadow: $axisX $axisY $spread $color;
+	}
+}
+
+@mixin __underlineBase($w: 400, $oh: null, $p: 0.125rem, $h: 0.125rem, $d: 0.125rem) {
+	$weight: hasValue($w, 400);
+	$onhover: hasValue($oh, null);
+	$padding: hasValue($p, 0.125rem);
+	$height: hasValue($h, 0.125rem);
+	$distance: hasValue($d, 0.125rem);
+
+	position: relative;
+	font-weight: $weight;
+	padding-bottom: $padding;
+
+	&:after {
+		content: '';
+		position: absolute;
+		bottom: $distance;
+		left: 0;
+		width: 100%;
+		height: $height;
+		@include gradient(accent, error, 0.25);
+
+		@if $onhover {
+			opacity: 0;
+			transition: all 0.3s;
+		}
+	}
+}
+
+@mixin __underlineHover() {
+	&:after {
+		transition: all 0.3s;
+		opacity: 1;
+	}
+}
+
+@mixin underline($w: 400, $oh: null, $p: 0.125rem, $h: 0.125rem, $d: 0.125rem, $s: null) {
+	$subclass: hasValue($s, null);
+	$onhover: hasValue($oh, null);
+
+	@if $subclass {
+		#{$subclass} {
+			@include __underlineBase($w, $oh, $p, $h, $d);
+		}
+
+		@if $onhover {
+			&:hover {
+				#{$subclass} {
+					@include __underlineHover();
+				}
+			}
+		}
+	} @else {
+		@include __underlineBase($w, $oh, $p, $h, $d);
+
+		@if $onhover {
+			&:hover {
+				@include __underlineHover();
+			}
+		}
+	}
+}
+
+@mixin disable-underline() {
+	&:after,
+	&:before,
+	&:hover:before,
+	&:hover:after {
+		content: none;
+		display: none;
+	}
+}
+
+@mixin amplify-on-hover(
+	$p: null,
+	$m: null,
+	$br: null,
+	$gf: null,
+	$gt: null,
+	$gd: null,
+	$of: null,
+	$ot: null
+) {
+	$padding: listHasValue($p, 0.1em 0.2em);
+	$margin: listHasValue($m, 0 -0.2em);
+	$borderRadius: hasValue($br, 0.25em);
+	$gradientFrom: hasValue($gf, accent);
+	$gradientTo: hasValue($gt, error);
+	$gradientDirection: hasValue($gd, to right);
+	$opacityFrom: hasValue($of, 0);
+	$opacityTo: hasValue($ot, 1);
+
+	$top: hasValue(listIndexOr($margin, 1), 0);
+	$right: hasValue(listIndexOr($margin, 2), -0.2em);
+	$bottom: hasValue(listIndexOr($margin, 3, 1), 0);
+	$left: hasValue(listIndexOr($margin, 4, 2), -0.2em);
+
+	position: relative;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: $top;
+		right: $right;
+		bottom: $bottom;
+		left: $left;
+		border-radius: $borderRadius;
+		opacity: $opacityFrom;
+		@include gradient($gradientFrom, $gradientTo, null, $gradientDirection);
+
+		transition: opacity 0.3s;
+	}
+
+	&:hover {
+		&:before {
+			opacity: $opacityTo;
+			transition: opacity 0.3s;
+		}
+	}
+}
+
+@mixin amplify-underline($s: null, $w: null, $p: null, $f: null, $t: null) {
+	$state: hasValue($s, 0);
+	$weight: hasValue($w, 400);
+	$padding: hasValue($p, 0.125rem);
+	$from: hasValue($f, accent);
+	$to: hasValue($t, error);
+
+	position: relative;
+	outline: none;
+	text-decoration: none;
+	font-weight: $weight;
+	padding-bottom: $padding;
+	@include var(color, text-color);
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	@if $state == 0 {
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: $padding;
+			left: 0;
+			width: 100%;
+			height: 0.125rem;
+			@include gradient($from, $to, 0.25);
+
+			opacity: 1;
+			transition: all 0.3s ease-out;
+		}
+
+		&::before {
+			content: '';
+			position: absolute;
+			left: -$padding;
+			right: -$padding;
+			top: 0;
+			bottom: 0;
+			border-radius: 0.25rem;
+			@include gradient($from, $to);
+
+			opacity: 0;
+			transition: all 0.3s ease-out;
+		}
+
+		&:hover {
+			&::after {
+				opacity: 0;
+				transition: all 0.3s ease-out;
+			}
+			&::before {
+				opacity: 1;
+				transition: all 0.3s ease-out;
+			}
+		}
+	}
+
+	@if state == 1 {
+		&::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			border-radius: 0.25rem;
+			@include gradient($from, $to);
+
+			opacity: 1;
+			transition: all 0.3s ease-out;
+		}
+	}
+
+	@if state == 2 {
+		&:hover {
+			&::after {
+				opacity: 0;
+				transition: all 0.3s ease-out;
+			}
+			&::before {
+				opacity: 1;
+				transition: all 0.3s ease-out;
+			}
+		}
+	}
+}
+
+@mixin hoverline(
+	$colorFrom: null,
+	$colorTo: null,
+	$gradientDirection: null,
+	$gradientOpacity: null,
+	$lineHeight: null,
+	$cursor: default
+) {
+	$from: hasValue($colorFrom, accent);
+	$to: hasValue($colorTo, error);
+	$direction: hasValue($gradientDirection, to right);
+	$opacity: hasValue($gradientOpacity, 1);
+	$height: hasValue($lineHeight, 0.5rem);
+
+	position: relative;
+
+	&:hover {
+		cursor: $cursor;
+
+		&:after {
+			@include var(background-color, $from, 0.2);
+			left: 0;
+			opacity: 0.3;
+			transition: all 0.3s;
+			transition-timing-function: ease-out, cubic-bezier(0.82, 0.1, 0.14, 1.12);
+		}
+	}
+
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		height: $height;
+		z-index: 1;
+	}
+	&:before {
+		left: 0;
+		width: 100%;
+		opacity: 0.15;
+		@include var(background-color, $from, $opacity);
+	}
+
+	&:after {
+		@include gradient(transparent, $to, $opacity, $direction);
+		opacity: 0;
+		left: 90%;
+		right: 0;
+		width: auto;
+		overflow: hidden;
+		transition: all 0.2s;
+		transition-timing-function: ease-in;
+	}
+}
+
+@mixin pulse($c: null, $s: null, $t: null, $p: null) {
+	$color: hasValue($c, primary);
+	$spread: hasValue($s, 0.75em);
+	$time: hasValue($t, 2s);
+	$pulses: hasValue($p, infinite);
+
+	$base: getCssVar($color, 1);
+	$initial: getCssVar($color, 0.7);
+	$faded: getCssVar($color, 0);
+
+	@keyframes pulse-self {
+		0% {
+			transform: scale(1);
+			box-shadow: 0 0 0 0 #{$initial};
+		}
+
+		70% {
+			transform: scale(1.05);
+			box-shadow: 0 0 0 #{$spread} #{$faded};
+		}
+
+		100% {
+			transform: scale(1);
+			box-shadow: 0 0 0 #{$spread} #{$faded};
+		}
+	}
+
+	box-shadow: 0 0 0 0 #{$base};
+	background: $base;
+
+	animation-name: pulse-self;
+	animation-duration: #{$time};
+	animation-iteration-count: $pulses;
+}

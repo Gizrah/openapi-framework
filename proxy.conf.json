@@ -1,0 +1,29 @@
+{
+	"/core": {
+		"target": "http://127.0.0.1:4300",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug",
+		"pathRewrite": {
+			"^/core": "/core"
+		}
+	},
+	"/api": {
+		"target": "http://127.0.0.1:4300",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug",
+		"pathRewrite": {
+			"^/api": "/api"
+		}
+	},
+	"/zipcode": {
+		"target": "http://127.0.0.1:5600",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug",
+		"pathRewrite": {
+			"^/zipcode": "/zipcode"
+		}
+	}
+}

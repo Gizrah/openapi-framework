@@ -1,0 +1,155 @@
+@import 'mixins';
+
+:host {
+	position: relative;
+	height: auto;
+	width: auto;
+}
+
+.ngq_search {
+	width: 100%;
+	height: 100%;
+	display: block;
+
+	&-icon {
+		width: auto;
+		height: auto;
+		display: block;
+	}
+
+	&-field {
+		display: block;
+		position: absolute;
+		height: 3em;
+		width: 15em;
+		right: 3em;
+		top: 0;
+		transition: all 0.3s;
+		overflow: hidden;
+		z-index: 4;
+
+		&-embedded {
+			display: block;
+			position: absolute;
+			top: 0;
+			right: 2em;
+			width: 15em;
+			transition: all 0.3s;
+			overflow: hidden;
+			z-index: 4;
+
+			.ngq_search {
+				&-input {
+				}
+			}
+		}
+	}
+
+	&-input {
+		display: block;
+		height: 2.25em;
+		width: 100%;
+		border-radius: 0.25em;
+		outline: none;
+		box-sizing: border-box;
+		padding: 0 0.5em 0 1.5em;
+		@include border(border, 2px, solid, app-bg);
+	}
+
+	&-action {
+		position: absolute;
+		left: 0.35em;
+		top: calc(50% - 1.2em);
+	}
+
+	&-response {
+		position: absolute;
+		top: 3em;
+		right: 3em;
+		width: 15em;
+		z-index: 3;
+
+		@include shade();
+	}
+
+	&-list {
+		width: 100%;
+		height: 100%;
+		display: block;
+
+		.mat-form-field {
+			width: 100%;
+
+			&-infix {
+				width: 100%;
+			}
+		}
+
+		.ngq_search {
+			&-field {
+				right: auto;
+				top: auto;
+				width: 100%;
+				position: relative;
+			}
+
+			&-input {
+				height: auto;
+				width: 100%;
+				border-radius: 0;
+				padding: 0;
+				border: 0;
+			}
+
+			&-action {
+				position: absolute;
+				left: -0.25em;
+				top: calc(50% - 1.1em);
+			}
+		}
+
+		.ngq-label-line {
+			margin-top: 0.5em;
+			margin-bottom: 0.25em;
+			width: calc(100% - 1em);
+			box-sizing: border-box;
+		}
+	}
+
+	&-message {
+		display: block;
+		width: 100%;
+		height: auto;
+		font-size: 0.75em;
+		box-sizing: border-box;
+		padding: 0.25em 0.5em 0.5em 0.5em;
+		line-height: 1.1;
+		@include var(color, 'grey');
+	}
+
+	&-shadow {
+		display: block;
+		position: absolute;
+		top: calc(50% - 1.1em);
+		left: 1.25em;
+		width: auto;
+		height: 100%;
+		max-width: inherit;
+		pointer-events: none;
+
+		span {
+			display: inline-block;
+			width: auto;
+			opacity: 0;
+			pointer-events: none;
+		}
+		.ngq_search {
+			&-clear {
+				position: absolute;
+				top: calc(50% - 0.85em);
+				right: -1.875em;
+				pointer-events: all;
+			}
+		}
+	}
+}

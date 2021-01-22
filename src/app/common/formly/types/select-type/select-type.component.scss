@@ -1,0 +1,80 @@
+@import 'mixins';
+
+.select_type {
+	&-add {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		width: 100%;
+		margin: 0.75em 0;
+	}
+
+	&-li {
+		box-sizing: border-box;
+		@include border(border, 1px, solid, text-color, 0.15);
+		@include var(background-color, app-bg, 0.35);
+		width: auto;
+		display: inline-flex;
+		align-items: stretch;
+		justify-content: space-between;
+		border-radius: 0.35em;
+		transition: all 0.3s;
+		margin: 0.5em;
+
+		span {
+			margin: 0.5em;
+		}
+	}
+
+	&-remove {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0 0.25em;
+		margin-left: 0.125em;
+		border-top-right-radius: 0.35em;
+		border-bottom-right-radius: 0.35em;
+		cursor: pointer;
+		@include border(border-left, 1px, solid, text-color, 0.25);
+
+		.fa {
+			font-size: 0.8em;
+			@include var(color, text-color, 0.25);
+		}
+
+		&:hover {
+			.fa {
+				@include var(color, warning, 0.5);
+			}
+		}
+	}
+
+	&-list {
+		position: absolute;
+		top: -0.5em;
+		left: 0;
+		width: 24em;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: flex-start;
+	}
+
+	&-selected {
+		margin-top: -0.75em;
+		margin-left: -0.25em;
+		margin-right: -0.25em;
+		width: calc(100% + 0.5em);
+		display: flex;
+		flex-wrap: wrap;
+
+		& > * {
+			margin: 0.25em;
+		}
+	}
+
+	&-response {
+		box-sizing: border-box;
+		margin: 0.5em;
+	}
+}

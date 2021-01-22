@@ -1,0 +1,60 @@
+@import 'mixins';
+
+:host {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	height: 2.6em;
+	padding: 0 0.75em;
+	box-sizing: border-box;
+
+	@include var(background-color, 'white');
+	@include border(border-bottom, 1px, solid, accent);
+
+	div:not(.ngq_dialog_bar-indicator) {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	span:not(.ngq_dialog_bar-active):not(.ngq_dialog_bar-disabled) {
+		cursor: pointer;
+		@include underline(400, true);
+	}
+}
+
+.ngq_dialog_bar {
+	&-divider {
+		font-size: 0.75em;
+		padding: 0 0.5em;
+		@include var(color, accent);
+	}
+
+	&-active {
+		@include underline();
+		cursor: pointer;
+		pointer-events: none;
+	}
+
+	&-item {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&-indicator {
+		position: absolute;
+		width: 0;
+		left: 0;
+		margin-left: -0.25em;
+		padding-right: 0.5em;
+		top: 0.1875em;
+		bottom: 0.1875em;
+		border-radius: 0.25em;
+
+		@include gradient(accent, error);
+		transition: all 0.1s ease;
+	}
+}

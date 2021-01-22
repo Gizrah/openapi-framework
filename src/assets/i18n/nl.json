@@ -1,0 +1,514 @@
+{
+	"generic": {
+		"empty": "Leeg",
+		"add": "Toevoegen",
+		"remove": "Weghalen",
+		"edit": "Bewerk",
+		"change": "Wijzig",
+		"alter": "Aanpassen",
+		"apply": "Toepassen",
+		"switch": "Wissel",
+		"enter": "Invoeren",
+		"delete": "Verwijder",
+		"submit": "Verstuur",
+		"close": "Sluit",
+		"cancel": "Annuleer",
+		"save": "Opslaan",
+		"unknown": "Onbekend",
+		"details": "Details",
+		"required": "Dit veld is verplicht",
+		"select": "Selecteer",
+		"deselect": "Deselecteer",
+		"search": "Zoeken",
+		"and": "en",
+		"or": "of",
+		"yes": "Ja",
+		"no": "Nee",
+		"true": "#/generic/yes",
+		"false": "#/generic/no",
+		"singular": "Enkelvoud",
+		"plural": "Meervoud"
+	},
+
+	"common": {
+		"id": "ID",
+		"name": "Naam",
+		"provider": "#/semantic/common/provider/singular",
+		"unit": "#/semantic/common/unit/singular",
+		"user": "Gebruiker",
+		"users": "Gebruikers",
+		"description": "Beschrijving",
+		"image": "Afbeelding",
+		"username": "Gebruikersnaam",
+		"translation": "Vertaling",
+		"translations": "Vertalingen",
+		"contact": "Contactgegevens",
+		"gotodetails": "Toon details",
+		"overview": "Overzicht",
+
+		"delete": {
+			"forpath": "{{path}}: Weet je zeker dat je {{subject}} wil verwijderen?",
+			"default": "Weet je zeker dat je {{subject}} wil verwijderen?",
+			"unknown": "Weet je zeker dat je dat je wil verwijderen?"
+		},
+
+		"validation": {
+			"minLength": "Minimaal {{minLength}} karakters",
+			"maxLength": "Maximaal {{maxLength}} karakters",
+			"pattern": "Invoer incorrect",
+			"subjectempty": "{{subject}} leeg",
+			"required": "Dit veld is verplicht",
+			"min": "Minimaal {{min}}",
+			"max": "Maximaal {{max}",
+			"tel": "Ongeldig telefoonnummer",
+			"email": "Ongeldig e-mailadres"
+		},
+
+		"address": {
+			"title": "Adresgegevens",
+			"pristine": "Voer postcode en huisnummer in om te zoeken",
+			"results": "Er zijn {{count}} addressen gevonden",
+			"show": "Toon resultaten",
+			"select": "Selecteer adres",
+			"noresults": "Er zijn geen addressen gevonden",
+			"custom": "Zelf invoeren",
+			"customize": "Adres bewerken",
+			"automatic": "Zoek via BAG",
+			"edit": "#/generic/edit"
+		},
+
+		"dialog": {
+			"postto": "{{operationId}} {{operationType}} aan {{subject}}",
+			"post": "{{operationId}} {{operationType}}",
+			"patch": "{{subject}} {{operationType}}",
+			"put": "{{subject}} {{operationType}}",
+			"delete": "{{subject}} {{operationType}}"
+		},
+
+		"form": {
+			"unlink": "{{subject}} is gekoppeld. Klik hier om de koppeling weg te halen.",
+			"search-edit": "Zoek of wijzig"
+		},
+
+		"usermenu": {
+			"logout": {
+				"__title": "Afmelden"
+			},
+			"settings": {
+				"__title": "Instellingen"
+			},
+
+			"dev": {
+				"random": {
+					"__title": "Data genereren",
+					"__message": "Kies tussen genereren van willekeurige data, of data ophalen van de server."
+				},
+				"loaders": {
+					"__title": "Laders schakelen",
+					"__message": "Op de pagina alle laad-indicatoren tonen of verbergen"
+				},
+				"reload": {
+					"__title": "Applicatie herladen",
+					"__message": "Initialiseer de applicatie helemaal opnieuw en ververs alle data."
+				}
+			}
+		},
+
+		"person": {
+			"family": "Gezinsleden {{surname}}",
+			"info": "Persoonsinformatie"
+		}
+	},
+
+	"enum": {
+		"gender": ["Niet aangegeven", "Man", "Vrouw", "Anders"],
+		"translationType": [
+			"Geen",
+			"Algemeen",
+			"Veel gebruikt",
+			"Lijsten",
+			"Modellen",
+			"Handelingen",
+			"Meldingen"
+		],
+		"personType": ["Kind", "Ouder/verzorger", "Medewerker", "Volwassene"],
+		"childType": "#/enum/personType"
+	},
+
+	"schema": {
+		"User": {
+			"__title": "#/semantic/common/user/singular",
+			"id": "#/common/id",
+			"username": "#/common/username",
+			"email": "E-mail",
+			"provider_id": "Organisatie ID",
+			"gender": "Geslacht",
+			"active": "Actief",
+			"providers": "#/semantic/common/provider/plural",
+			"address": "#/common/address/title"
+		},
+		"UserExtended": "#/schema/User",
+		"Contact": {
+			"__title": "Contactpersoon",
+			"id": "#/common/id",
+			"username": "#/common/username",
+			"email": "#/schema/User/email",
+			"provider_id": "#/schema/User/provider_id",
+			"gender": "#/schema/User/gender",
+			"active": "#/schema/User/active",
+			"providers": "#/semantic/common/provider/plural",
+			"address": "#/common/address/title"
+		},
+		"Person": {
+			"__title": "Persoonsgegevens",
+			"gender": {
+				"__title": "Geslacht",
+				"none": "Niet aangegeven",
+				"male": "Man",
+				"female": "Vrouw",
+				"other": "Anders"
+			},
+			"type": {
+				"__title": "Soort",
+				"child": "Kind",
+				"caretaker": "Ouder/verzorger",
+				"employee": "Medewerker",
+				"adult": "Volwassene"
+			},
+			"firstName": "Voornaam",
+			"infix": "Tussenvoegsel",
+			"lastName": "Achternaam",
+			"birthdate": "Geboortedatum",
+			"initials": "Intialen",
+			"avatar": "Foto",
+			"contactInfo": "Contactgegevens",
+			"addresses": "Adresgegevens",
+			"entities": "Koppelingen",
+			"fullName": "Naam"
+		},
+		"Parent": "#/schema/Person",
+		"Child": "#/schema/Person",
+		"PersonContact": {
+			"__title": "Contactgegevens",
+			"type": {
+				"__title": "Type",
+				"email": "E-mail",
+				"phone": "Telefoonnummer"
+			},
+			"value": "Gegevens"
+		},
+		"PersonAddress": {
+			"__title": "Adresgegevens",
+			"type": {
+				"__title": "Soort adres",
+				"home": "Thuis",
+				"work": "Werk",
+				"school": "School",
+				"other": "Anders"
+			},
+			"address_id": "Adres"
+		},
+		"PersonEntity": {
+			"__title": "Koppelingen",
+			"__description": "Maak koppelingen tussen personen en onderdelen van de organisatie.",
+			"provider_id": "Organisatie",
+			"entity_id": "Onderdeel"
+		},
+		"Provider": {
+			"__title": "#/semantic/common/provider/singular",
+			"id": "#/common/id",
+			"name": "#/common/name",
+			"description": "#/common/description",
+			"units": "#/semantic/common/unit/plural",
+			"address": "#/common/address/title",
+			"contact": "Contactpersoon"
+		},
+		"Unit": {
+			"__title": "#/semantic/common/unit/singular",
+			"id": "#/common/id",
+			"name": "#/common/name",
+			"image": "#/common/image",
+			"description": "#/common/description",
+			"provider_id": "#/semantic/common/provider/singular",
+			"address": "#/schema/Address/__title",
+			"contact": "#/common/contact",
+			"lrk_id": "LRK nummer",
+			"type_oko": "OKO soort",
+			"bag_id": "BAG nummer"
+		},
+		"Translation": {
+			"__title": "#/common/translations",
+			"id": "#/common/id",
+			"type": "#/enum/translationType",
+			"provider_id": "#/semantic/common/provider/singular",
+			"translation": "#/common/translation"
+		},
+		"Address": {
+			"__title": "Adresgegevens",
+			"street": "Straat",
+			"street_number": "Huisnummer",
+			"street_number_additional": "Toevoeging",
+			"postal_code": "Postcode",
+			"city": "Stad",
+			"province": "Provincie",
+			"country": "Land",
+			"phone": "Telefoonnummer"
+		},
+		"PostcodeNLAddressModel": {
+			"street": "#/schema/Address/street",
+			"number": "#/schema/Address/street_number",
+			"letter": "Letter",
+			"addition": "#/schema/Address/street_number_additional",
+			"zipcode": "#/schema/Address/postal_code",
+			"city": "#/schema/Address/city",
+			"municipality": "Gemeente",
+			"province": "#/schema/Address/province",
+			"rdX": "Rijksdriehoekscoördinaat X",
+			"rdY": "Rijksdriehoekscoördinaat Y",
+			"latitude": "breedtegraad",
+			"longitude": "lengtegraad"
+		}
+	},
+
+	"tag": {
+		"provider": "#/semantic/common/provider/plural",
+		"person": "#/semantic/common/person/plural",
+		"tl": "#/semantic/common/translation/plural"
+	},
+
+	"operation": {
+		"operationId": {
+			"openapi.json": "Websitegegevens",
+			"postcode2address": "Postcode",
+			"get_provider": "#/semantic/common/provider/singular",
+			"delete_provider": "#/semantic/common/provider/singular",
+			"patch_provider": "#/semantic/common/provider/singular",
+			"get_provider_list": "#/semantic/common/provider/plural",
+			"post_provider": "#/semantic/common/provider/singular",
+			"users_get_me": "Mijn gebruikersgegevens",
+			"delete_user": "#/semantic/common/user/singular",
+			"patch_user": "#/semantic/common/user/singular",
+			"get_user_list": "#/semantic/common/user/plural",
+			"post_user": "#/semantic/common/user/singular",
+			"get_unit_list": "#/semantic/common/unit/plural",
+			"get_unit": "#/semantic/common/unit/singular",
+			"post_unit": "#/semantic/common/unit/singular",
+			"patch_unit": "#/semantic/common/unit/singular",
+			"delete_unit": "#/semantic/common/unit/singular",
+			"get_translation": "#/semantic/common/translation/singular",
+			"delete_translation": "#/semantic/common/translation/singular",
+			"patch_translation": "#/semantic/common/translation/singular",
+			"post_translation": "#/semantic/common/translation/plural",
+			"get_translation_list": "#/semantic/common/translation/plural",
+			"get_person_list": "#/semantic/common/person/plural",
+			"get_person": "#/semantic/common/person/singular",
+			"patch_person": "#/semantic/common/person/singular",
+			"delete_person": "#/semantic/common/person/singular",
+			"post_person": "#/semantic/common/person/singular",
+			"get_parent_list": "#/semantic/common/parent/plural",
+			"get_parent": "#/semantic/common/parent/singular",
+			"patch_parent": "#/semantic/common/parent/singular",
+			"delete_parent": "#/semantic/common/parent/singular",
+			"post_parent": "#/semantic/common/parent/singular",
+			"get_child_list": "#/semantic/common/child/plural",
+			"get_child": "#/semantic/common/child/singular",
+			"patch_child": "#/semantic/common/child/singular",
+			"delete_child": "#/semantic/common/child/singular",
+			"post_child": "#/semantic/common/child/singular"
+		},
+
+		"operationType": {
+			"get": "ophalen",
+			"post": "toevoegen",
+			"put": "wijzigen",
+			"patch": "bewerken",
+			"delete": "verwijderen"
+		}
+	},
+
+	"response": {
+		"type": {
+			"success": "gelukt",
+			"info": "",
+			"warning": "gelukt, maar",
+			"error": "is niet gelukt"
+		},
+
+		"construct": {
+			"operation": "{{operationId}} {{operationType}} {{responseType}}{{reason}}",
+			"item": "{{subject}} {{operationType}} {{responseType}}",
+			"type": "{{operationType}} {{responseType}}"
+		},
+
+		"error": {
+			"401": ": je bent niet ingelogd",
+			"500": ": de server had andere verwachtingen",
+			"504": ": er is geen verbinding met Quebble"
+		},
+
+		"default": {
+			"result": {
+				"empty": "{{operationId}} heeft nog geen data.",
+				"unavailable": "Er is geen data gevonden."
+			},
+			"search": {
+				"wildcard": "Zoek door {{operationId}} op basis van (een gedeelte van) de {{properties}}",
+				"properties": "Zoek door {{operationId}} op op basis van de {{properties}}",
+				"empty": "Je zoekopdracht heeft geen resultaten opgeleverd"
+			},
+
+			"code": {
+				"errorcode": "Foutcode:",
+				"disabled": "Interactie met de applicatie is uitgeschakeld totdat de verbinding is hersteld.",
+				"reconnect": "Op de achtergrond wordt geprobeerd verbinding met Quebble te maken.",
+				"contact": "Als dit probleem zich voor blijft doen op deze pagina, neem contact op met de helpdesk en geef de code door uit de foutmelding.",
+				"restart": "De applicatie herladen verhelpt dit probleem mogelijk.",
+				"params": "Extra informatie voor de helpdesk over deze foutmelding:",
+				"param": "Parameter in pad:",
+				"operationId": "Operatiecode:",
+				"component": "Onderdeel:",
+				"route": "Route:",
+				"show": "Toon extra informatie over deze foutmelding",
+				"hide": "Verberg extra informatie"
+			}
+		},
+
+		"code": {
+			"generic": {
+				"__title": "Applicatiefout",
+				"__ec": "quasar",
+				"__message": "Er is een onbekende fout opgetreden.",
+				"__description": "Er is een fout opgetreden in de applicatie, maar hiervoor is geen foutcode gevonden.",
+				"__info": "#/response/default/code/restart",
+				"__warning": "#/response/default/code/contact"
+			},
+			"offline": {
+				"__title": "Geen internet verbinding",
+				"__ec": "offline",
+				"__message": "De applicatie heeft geen internetverbinding gevonden.",
+				"__description": "Om Quebble te gebruiken heb je een internetverbinding nodig.",
+				"__error": "#/response/default/code/disabled",
+				"__warning": "#/response/default/code/contact"
+			},
+			"json-error": {
+				"__title": "Quebble niet bereikbaar",
+				"__ec": "json-error",
+				"__message": "Op dit moment is er geen verbinding met het Quebble platform.",
+				"__description": "Er is geen verbinding met het Quebble platform en de informatie die nodig is om de applicatie te starten en op te bouwen.",
+				"__error": "#/response/default/code/disabled",
+				"__info": "#/response/default/code/reconnect",
+				"__warning": "#/response/default/code/contact"
+			},
+			"json-invalid": {
+				"__title": "Applicatiefout",
+				"__ec": "json-invalid",
+				"__message": "Er was een probleem bij het laden van de Quebble applicatie.",
+				"__description": "Het Quebble platform is wel bereikbaar, maar gaf niet de goede informatie terug om de applicatie op te bouwen.",
+				"__error": "#/response/default/code/disabled",
+				"__info": "#/response/default/code/reconnect",
+				"__warning": "#/response/default/code/contact"
+			},
+			"basalt": {
+				"__title": "Koppeling niet gevonden",
+				"__ec": "basalt",
+				"__message": "De route voor deze koppeling kan niet worden gevonden.",
+				"__description": "Het onderdeel van de applicatie die je wilde openen is niet goed ingeladen. Dit kan gebeuren wanneer als er wat mis is gegaan tijdens de initialisatie van de applicatie.",
+				"__info": "#/response/default/code/restart",
+				"__warning": "#/response/default/code/contact"
+			},
+			"andesite": {
+				"__title": "Koppeling maken mislukt",
+				"__ec": "andesiet",
+				"__message": "Geen inhoud gevonden voor de geselecteerde koppeling.",
+				"__description": "De koppeling die je wilde maken bevat geen inhoud en kon daardoor niet opgebouwd worden. Dit kan gebeuren als lokaal opgeslagen data verlopen is.",
+				"__info": "#/response/default/code/restart",
+				"__warning": "#/response/default/code/contact"
+			},
+			"picrite": {
+				"__title": "Geen route gevonden",
+				"__ec": "picriet",
+				"__message": "Er is geen koppeling gevonden voor het geselecteerde onderdeel.",
+				"__description": "De weergave die je probeerde te bereiken kon niet worden opgebouwd. Dit kan gebeuren doordat lokaal opgeslagen data verlopen is.",
+				"__info": "#/response/default/code/restart",
+				"__warning": "#/response/default/code/contact"
+			},
+			"dacite": {
+				"__title": "Fout met koppeling",
+				"__ec": "daciet",
+				"__message": "De koppeling die je probeerde kan niet gevonden worden.",
+				"__description": "De applicatie kon de handeling niet uitvoeren, omdat deze niet gevonden is in het Quebble platform.",
+				"__info": "#/response/default/code/restart",
+				"__warning": "#/response/default/code/contact"
+			},
+			"komatiite": {
+				"__title": "Fout met koppeling",
+				"__ec": "komatiiet",
+				"__message": "Waarde kon niet gevonden worden.",
+				"__description": "De inhoud om de koppeling op te bouwen kon niet worden gevonden in de data die gebruikt werd. Dit kan voorkomen wanneer lokaal opgeslagen data verloopt.",
+				"__info": "#/response/default/code/restart",
+				"__warning": "#/response/default/code/contact"
+			}
+		}
+	},
+
+	"semantic": {
+		"common": {
+			"unit": {
+				"singular": "Eenheid",
+				"plural": "Eenheden"
+			},
+			"provider": {
+				"singular": "Organisatie",
+				"plural": "Organisaties"
+			},
+			"user": {
+				"singular": "Gebruiker",
+				"plural": "Gebruikers"
+			},
+			"translation": {
+				"singular": "Vertaling",
+				"plural": "Vertalingen"
+			},
+			"person": {
+				"singular": "Persoon",
+				"plural": "Personen"
+			},
+			"parent": {
+				"singular": "Ouder",
+				"plural": "Ouders"
+			},
+			"child": {
+				"singular": "Kind",
+				"plural": "Kinderen"
+			}
+		}
+	},
+
+	"system": {
+		"selectprovider": {
+			"__title": "Selecteer werkomgeving",
+			"clean": "Je hebt op dit moment nog geen werkomgeving ingesteld. Wil je {{organisation}} instellen als werkomgeving?",
+			"current": "Je huidige werkomgeving is {{organisation}}, wil je in deze omzetten naar {{secondary}}?",
+			"same": "{{organisation}} is je huidige werkomgeving.",
+			"setup": "Stel in",
+			"switch": "Wissel",
+			"clear": "Deselecteer"
+		},
+		"login": {
+			"__title": "Aanmelden",
+			"__description": "Om deze pagina te bezoeken moet je eerst aangemeldt zijn. Neem contact op met je organisatie als je nog geen account hebt.",
+			"__parental": "Voor het ouderportaal kunt u het beste de Quebble app gebruiken.",
+			"login": "Aanmelden",
+			"logout": "Afmelden",
+			"loggedout": "Je bent niet aangemeldt. Klik hier om je aan te melden."
+		},
+		"operation": {
+			"error": {
+				"type": "Voor {{key}} werd het type {{needs}} verwacht, maar een {{got}} werd meegestuurd.",
+				"format": "Voor {{key}} werd verwacht dat het een {{needs}} was, maar een {{got}} werd meegestuurd.",
+				"required": "Het veld {{key}} is verplicht, maar werd niet meegestuurd.",
+				"noschema": "Er is geen schema gevonden om de data mee te valideren."
+			}
+		}
+	}
+}

@@ -1,0 +1,51 @@
+<ngq-bar> </ngq-bar>
+
+<div class="planning__container">
+	<div class="planning__sidebar">
+		<ngq-planning-sidebar [items]="planableItems"></ngq-planning-sidebar>
+	</div>
+
+	<div class="planning__wrapper">
+		<header class="planning__filter">
+			<div class="filters"></div>
+			<div class="filter__date">
+				<ngq-button
+					color="accent"
+					icon="arrow-left"
+					(click)="changeWeek('prev')"
+				></ngq-button>
+				<mat-form-field style="width: 1px; visibility: hidden; margin-top: 1.7rem;">
+					<input
+						hidden="hidden"
+						matInput
+						[matDatepicker]="picker"
+						(dateChange)="onDateChanged('change', $event)"
+					/>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+				<ngq-button color="primary" (click)="picker.open()"
+					>Week {{ currentDate.week }} / {{ currentDate.year }}</ngq-button
+				>
+
+				<ngq-button
+					color="accent"
+					icon="arrow-right"
+					(click)="changeWeek('next')"
+				></ngq-button>
+			</div>
+			<div class="filter__view">
+				<ngq-button color="accent" icon="list" (click)="toggleMinimalMode()"></ngq-button>
+			</div>
+			<ngq-planning-filter></ngq-planning-filter>
+		</header>
+		<section class="planning__grid" [loader]="loader">
+			<ngq-planning-grid
+				#planningGrid
+				[items]="items"
+				[date]="dateObj"
+				[shifts]="shifts"
+				[minimal]="minimal"
+			></ngq-planning-grid>
+		</section>
+	</div>
+</div>

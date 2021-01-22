@@ -1,0 +1,79 @@
+<ng-container [response]="operation?.id" *ngIf="operation?.id"></ng-container>
+
+<div class="ngq_family-groups" *ngIf="avatars?.length">
+	<ng-template [ngIf]="multiple">
+		<ng-container *ngFor="let group of avatars">
+			<ng-container *ngTemplateOutlet="groupCard; context: { group: group }"></ng-container>
+		</ng-container>
+	</ng-template>
+
+	<ng-template [ngIf]="!multiple">
+		<ng-container *ngTemplateOutlet="groupCard; context: { group: avatars }"></ng-container>
+	</ng-template>
+</div>
+
+<div class="ngq_family-focus" *ngIf="!!object" masonry="masonry-" columns="3">
+	<ng-container *ngFor="let objectDef of objectDefs">
+		<ng-template [ngIf]="objectDef.key === null" [ngIfElse]="notbase">
+			<ng-container
+				*ngTemplateOutlet="
+					objectCard;
+					context: {
+						title: object[operation.subject],
+						objectDef: objectDef,
+						prefix: null,
+						actions: true
+					}
+				"
+			></ng-container>
+		</ng-template>
+
+		<ng-template #notbase>
+			<ng-container
+				*ngIf="object[objectDef.key] !== null && object[objectDef.key] !== undefined"
+			>
+				<ng-container
+					*ngTemplateOutlet="
+						objectCard;
+						context: {
+							title: 'schema.' + operation.prefix + '.' + objectDef.key,
+							objectDef: objectDef,
+							actions: false
+						}
+					"
+				></ng-container>
+			</ng-container>
+		</ng-template>
+	</ng-container>
+</div>
+
+<ng-template #groupCard let-group="group">
+	<ngq-card mode="dark" type="card" [title]="'common.person.family' | translink">
+		<ngq-avatar-row
+			[items]="group"
+			[avatar]="avatar"
+			[selected]="objectId"
+			[subject]="operation?.subject"
+			(select)="selectItem($event)"
+			size="4"
+			iconsize="1.5"
+		></ngq-avatar-row>
+	</ngq-card>
+</ng-template>
+
+<ng-template #objectCard let-title="title" let-objectDef="objectDef" let-actions="actions">
+	<ngq-card mode="light" type="card" [title]="'common.person.info' | translink" class="masonry-3">
+		<ngq-actions
+			*ngIf="actions && operations.length"
+			[operations]="operations"
+			[shade]="false"
+			(select)="doDialog($event)"
+		></ngq-actions>
+
+		<ngq-object
+			[objectDef]="objectDef"
+			[operation]="operation"
+			[prefix]="objectDef.key"
+		></ngq-object>
+	</ngq-card>
+</ng-template>

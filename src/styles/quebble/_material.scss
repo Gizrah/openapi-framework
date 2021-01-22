@@ -1,0 +1,149 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$purple-dark: (
+	50: #e5e4e6,
+	100: #bdbbc0,
+	200: #928e96,
+	300: #66606b,
+	400: #453e4c,
+	500: #241c2c,
+	600: #201927,
+	700: #1b1421,
+	800: #16111b,
+	900: #0d0910,
+	A100: #aa55ff,
+	A200: #9022ff,
+	A400: #7700ee,
+	A700: #6a00d4,
+	contrast: (
+		50: #000000,
+		100: #000000,
+		200: #000000,
+		300: #ffffff,
+		400: #ffffff,
+		500: #ffffff,
+		600: #ffffff,
+		700: #ffffff,
+		800: #ffffff,
+		900: #ffffff,
+		A100: #000000,
+		A200: #ffffff,
+		A400: #ffffff,
+		A700: #ffffff,
+	),
+);
+
+$purple-light: (
+	50: #e7e6e8,
+	100: #c4c1c7,
+	200: #9d97a1,
+	300: #756d7b,
+	400: #584e5f,
+	500: #3a2f43,
+	600: #342a3d,
+	700: #2c2334,
+	800: #251d2c,
+	900: #18121e,
+	A100: #b962ff,
+	A200: #a22fff,
+	A400: #8b00fb,
+	A700: #7d00e1,
+	contrast: (
+		50: #000000,
+		100: #000000,
+		200: #000000,
+		300: #ffffff,
+		400: #ffffff,
+		500: #ffffff,
+		600: #ffffff,
+		700: #ffffff,
+		800: #ffffff,
+		900: #ffffff,
+		A100: #000000,
+		A200: #ffffff,
+		A400: #ffffff,
+		A700: #ffffff,
+	),
+);
+
+$yellow-dark: (
+	50: #fdf5e2,
+	100: #fae6b6,
+	200: #f6d585,
+	300: #f2c454,
+	400: #f0b730,
+	500: #edaa0b,
+	600: #eba30a,
+	700: #e89908,
+	800: #e59006,
+	900: #e07f03,
+	A100: #ffffff,
+	A200: #ffead4,
+	A400: #ffd2a1,
+	A700: #ffc588,
+	contrast: (
+		50: #000000,
+		100: #000000,
+		200: #000000,
+		300: #000000,
+		400: #000000,
+		500: #000000,
+		600: #000000,
+		700: #000000,
+		800: #000000,
+		900: #000000,
+		A100: #000000,
+		A200: #000000,
+		A400: #000000,
+		A700: #000000,
+	),
+);
+
+$yellow-light: (
+	50: #fffefd,
+	100: #fffdf9,
+	200: #fffcf5,
+	300: #fffbf1,
+	400: #fffaee,
+	500: #fff9eb,
+	600: #fff8e9,
+	700: #fff7e5,
+	800: #fff6e2,
+	900: #fff5dd,
+	A100: #ffffff,
+	A200: #ffffff,
+	A400: #ffffff,
+	A700: #ffffff,
+	contrast: (
+		50: #000000,
+		100: #000000,
+		200: #000000,
+		300: #000000,
+		400: #000000,
+		500: #000000,
+		600: #000000,
+		700: #000000,
+		800: #000000,
+		900: #000000,
+		A100: #000000,
+		A200: #000000,
+		A400: #000000,
+		A700: #000000,
+	),
+);
+
+$red: #ff1807;
+
+$app-typography: mat-typography-config(
+	$font-family: 'Source Sans Pro, Open Sans, sans-serif',
+	$body-1: mat-typography-level(1em, 1.5em, 300),
+);
+
+$app-primary: mat-palette($purple-dark, 500);
+$app-accent: mat-palette($yellow-dark, 500);
+$app-theme-light: mat-light-theme($app-primary, $app-accent);
+
+@include angular-material-theme($app-theme-light);
+@include angular-material-typography($app-typography);

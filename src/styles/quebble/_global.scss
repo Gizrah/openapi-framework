@@ -1,0 +1,320 @@
+@import './mixins';
+
+.ngq-ancestor {
+	width: 100%;
+	height: 100%;
+	justify-self: stretch;
+	align-self: stretch;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.ngq-component {
+	width: 100%;
+	height: 100%;
+	padding: 0.5em;
+	justify-self: stretch;
+	align-self: stretch;
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: stretch;
+	align-items: stretch;
+	overflow-y: auto;
+
+	&-vertical {
+		width: 100%;
+		height: 100%;
+		padding: 0.5em;
+		justify-self: stretch;
+		align-self: stretch;
+		box-sizing: border-box;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+		overflow-y: auto;
+	}
+}
+
+.ngq-embedded {
+	width: 100%;
+	height: 100%;
+	padding: 0.5em;
+	justify-self: stretch;
+	align-self: stretch;
+	box-sizing: border-box;
+	display: block;
+
+	& > * {
+		display: inline-block;
+	}
+}
+
+.preload {
+	animation-duration: 0s !important;
+	-webkit-animation-duration: 0s !important;
+	transition: background-color 0s, opacity 0s, color 0s, width 0s, height 0s, padding 0s,
+		margin 0s !important;
+}
+
+.wrapper {
+	display: block;
+	position: relative;
+}
+
+.ngq-label-line {
+	height: 0.0625rem;
+	width: 100%;
+	@include var(background-color, text-color, 0.15);
+	margin: 0 0.5em;
+	flex-grow: 2;
+}
+
+.shade {
+	@include shade();
+
+	&-hover {
+		transition: all 0.2s;
+		transform: perspective(0) rotateX(0deg) scale(1) translateZ(0);
+		box-shadow: none;
+		backface-visibility: hidden;
+
+		&:before {
+			content: '';
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			transition: all 0.2s;
+			z-index: -1;
+
+			@include shade();
+		}
+
+		&:hover {
+			transition: all 0.2s;
+			transform: perspective(250px) rotateX(1.5deg) scaleY(1.009) translateZ(0);
+			backface-visibility: hidden;
+
+			&:before {
+				transition: all 0.2s;
+
+				z-index: -1;
+
+				@include shade(null, null, null, 0, 0.65rem, 0.25rem);
+			}
+		}
+	}
+}
+
+.blur {
+	& > *:not(ngq-loader) {
+		filter: blur(5px);
+
+		& > *:not(ngq-loader) {
+			filter: blur(5px);
+		}
+	}
+
+	&-1 {
+		& > *:not(ngq-loader) {
+			filter: blur(1px);
+
+			& > *:not(ngq-loader) {
+				filter: blur(1px);
+			}
+		}
+	}
+
+	&-2 {
+		& > *:not(ngq-loader) {
+			filter: blur(2px);
+
+			& > *:not(ngq-loader) {
+				filter: blur(2px);
+			}
+		}
+	}
+
+	&-3 {
+		& > *:not(ngq-loader) {
+			filter: blur(3px);
+
+			& > *:not(ngq-loader) {
+				filter: blur(3px);
+			}
+		}
+	}
+}
+
+.required {
+	@include var(color, error);
+	font-weight: 600;
+}
+
+.amplify {
+	&,
+	&-hover {
+		@include var(color, text-color);
+		padding: 0.1rem 0.2rem;
+		border-radius: 0.1rem;
+		margin: 0 -0.2rem;
+		outline: none;
+	}
+
+	&:not(.amplify-hover) {
+		@include gradient(accent, error);
+	}
+
+	&:hover:not(.amplify-hover) {
+		text-decoration: underline;
+		@include var(color, primary);
+	}
+
+	&-hover {
+		&:hover {
+			cursor: pointer;
+			outline: none;
+			// text-decoration: underline;
+			// @include var(color, primary);
+			@include gradient(accent, error);
+		}
+	}
+}
+
+.underline {
+	@include underline(400);
+	outline: none;
+	text-decoration: none;
+	@include var(color, text-color);
+
+	&-hover {
+		@include underline(400, true);
+		cursor: pointer;
+		outline: none;
+	}
+
+	&-target {
+		&:hover {
+			.target {
+				@include underline(400);
+				cursor: pointer;
+				outline: none;
+			}
+		}
+	}
+
+	&-amplify {
+		cursor: pointer;
+
+		@include amplify-underline();
+	}
+}
+
+label {
+	font-weight: 400;
+	@include var(color, text-color);
+
+	&.primary {
+		@include var(color, primary);
+	}
+	&.accent {
+		@include var(color, accent);
+	}
+}
+
+.__log__ {
+	.ngq_button-content {
+		width: 2.25em;
+		height: 2.25em;
+		overflow: hidden;
+
+		img {
+			width: 2em;
+			height: auto;
+		}
+	}
+}
+
+.ngq-devmode {
+	&-button {
+		position: absolute !important;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		bottom: -0.5em;
+		left: -0.5em;
+		border-radius: 100%;
+		@include border(border, 2px, solid, 'white');
+		@include shade();
+	}
+	&-action {
+		position: absolute !important;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		bottom: -0.5em;
+		left: 1.25em;
+		border-radius: 100%;
+		@include border(border, 2px, solid, 'white');
+		@include shade();
+	}
+	&-component {
+		position: absolute !important;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		z-index: 99999;
+		bottom: 0.5em;
+		left: 0.5em;
+		border-radius: 100%;
+		@include border(border, 2px, solid, 'white');
+		@include shade();
+	}
+	&-field {
+		display: flex;
+		position: absolute;
+		left: -0.5em;
+		bottom: 1.25em;
+		width: 20em;
+		height: 12em;
+		padding: 0.25em;
+		border-radius: 0.25em;
+		flex-direction: column;
+		justify-content: flex-start;
+		@include var(background-color, box-bg);
+		@include shade();
+
+		textarea {
+			display: block;
+			width: 100%;
+			flex-grow: 2;
+			font-family: monospace;
+			font-size: 0.8em;
+		}
+
+		ngq-button {
+			flex-shrink: 0;
+			margin-top: 1em;
+		}
+	}
+}
+
+.bg {
+	&-warning {
+		@include var(background-color, warning);
+	}
+	&-info {
+		@include var(background-color, info);
+	}
+	&-success {
+		@include var(background-color, success);
+	}
+	&-error {
+		@include var(background-color, error);
+	}
+}

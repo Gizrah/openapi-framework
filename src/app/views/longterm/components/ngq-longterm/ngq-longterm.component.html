@@ -1,0 +1,24 @@
+<div class="lt__container">
+	<ngq-lt-column title="Locatie's" width="300px" number="1">
+		<ngq-lt-list [items]="locations" (select)="selectLocation($event)"></ngq-lt-list>
+	</ngq-lt-column>
+	<ng-container *ngIf="selectedLocation">
+		<ngq-lt-column title="Wachtlijst" width="350px" number="2">
+		<ngq-lt-list [items]="kids" (select)="selectKid($event)"></ngq-lt-list>
+	</ngq-lt-column>
+	</ng-container>
+	<ng-container *ngIf="selectedKid">
+		<ngq-lt-column title="Contract" width="550px" number="3">
+			<ngq-lt-contract-card
+				[person]="selectedKid"
+				[location]="selectedLocation"
+				[locations]="locations"
+			></ngq-lt-contract-card>
+		</ngq-lt-column>
+	</ng-container>
+	<ng-container *ngIf="selectedKid">
+		<ngq-lt-column title="Groepen" width="1400px" number="4">
+			<ngq-lt-group-availability-overview [locations]="personLocations"></ngq-lt-group-availability-overview>
+		</ngq-lt-column>
+	</ng-container>
+</div>

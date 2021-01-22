@@ -1,0 +1,28 @@
+@import 'mixins';
+
+:host {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-direction: column;
+}
+
+.ngq_family {
+	&-groups {
+		width: 100%;
+		display: flex;
+		padding: 0.5em;
+		justify-content: flex-start;
+		align-items: flex-start;
+		box-sizing: border-box;
+	}
+
+	&-focus {
+		width: 100%;
+		display: flex;
+		padding: 0.5em;
+		justify-content: flex-start;
+		align-items: flex-start;
+		box-sizing: border-box;
+	}
+}

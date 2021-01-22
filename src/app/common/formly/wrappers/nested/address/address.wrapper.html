@@ -1,0 +1,198 @@
+<div class="address_wrapper">
+	<div class="address_wrapper-row ngq-form-validity">
+		<ng-template [ngIf]="label">
+			<ng-template [ngIf]="devmode">
+				<label
+					class="accent"
+					matTooltip="::DEV:: Log AddressWrapperComponent to console"
+					(click)="__log()"
+				>
+					{{ label | translink }}
+				</label>
+			</ng-template>
+
+			<ng-template [ngIf]="!devmode">
+				<label class="accent"> {{ label | translink }} </label>
+			</ng-template>
+		</ng-template>
+
+		<div
+			class="ngq-label-line"
+			*ngIf="!ngq.state && (
+				(!current && !selected) || ((!!selected || !!current) && formControl?.enabled)
+			) || ngq.state && formControl?.enabled
+			"
+			[@fadeInOut]
+		></div>
+
+		<i class="ngq-form-active fa fa-chevron-right" *ngIf="ngq.state" [@fadeInOut]></i>
+
+		<ng-template [ngIf]="!ngq.state">
+			<ngq-button
+				[icon]="['edit', 'plus']"
+				[color]="['info-alt', 'success-alt', 'primary-alt']"
+				(click)="customize()"
+				mode="mini"
+				[disabled]="addressCount"
+				*ngIf="!current && !selected && formControl.enabled"
+				[@fadeInOut]
+			>
+				{{ 'common.address.custom' | translink }}
+			</ngq-button>
+
+			<ngq-button
+				[icon]="'address-card-o'"
+				mode="mini"
+				[color]="['info-alt', 'primary-alt']"
+				(click)="unlock()"
+				*ngIf="!!current && !selected && formControl.enabled"
+				[@fadeInOut]
+			>
+				{{ 'common.address.edit' | translink }}
+			</ngq-button>
+
+			<ngq-button
+				icon="edit"
+				mode="mini"
+				[color]="['info-alt', 'primary-alt']"
+				(click)="customize()"
+				*ngIf="!!selected && formControl.enabled"
+				[@fadeInOut]
+			>
+				{{ 'common.address.customize' | translink }}
+			</ngq-button>
+		</ng-template>
+	</div>
+
+	<div class="address_wrapper-lookup formly-custom-fields" *ngIf="!current" [@fadeInOut]>
+		<ngq-description [title]="null">
+			<div
+				class="address_wrapper-fields"
+				[class.address_wrapper-disabled]="!!selected && !resetable || ngq.state"
+				[loader]="!addressForm"
+			>
+				<ng-template [ngIf]="addressForm">
+					<mat-form-field appearance="outline">
+						<label class="address_wrapper-label">
+							{{ labels.postal_code | translink }}
+							<span class="required">*</span>
+						</label>
+						<input matInput [formControl]="addressForm.controls.postal_code" />
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<label class="address_wrapper-label">
+							{{ labels.street_number | translink }}
+							<span class="required">*</span>
+						</label>
+						<input matInput [formControl]="addressForm.controls.street_number" />
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<label class="address_wrapper-label">
+							{{ labels.street_number_additional | translink }}
+						</label>
+						<input
+							matInput
+							[formControl]="addressForm.controls.street_number_additional"
+						/>
+					</mat-form-field>
+
+					<div class="address_wrapper-button">
+						<ngq-button
+							mode="mini"
+							color="error-alt"
+							icon="times-circle"
+							[disabled]="!resetable"
+							(click)="clear()"
+						></ngq-button>
+					</div>
+				</ng-template>
+			</div>
+
+			<div class="address_wrapper-result" *ngIf="addressForm">
+				<ng-template [ngIf]="addressCount" [ngIfElse]="noAddresses">
+					<ng-template [ngIf]="addressCount > 1 && !selected">
+						<span class="address_wrapper-results">
+							{{ 'common.address.results' | translink: { count: addressCount } }}
+						</span>
+
+						<div class="address_wrapper-actions">
+							<ngq-button
+								icon="list-ul"
+								mode="mini"
+								[color]="['info-alt', 'primary-alt']"
+								(click)="select()"
+							>
+								{{ 'common.address.show' | translink }}
+							</ngq-button>
+						</div>
+					</ng-template>
+				</ng-template>
+
+				<ng-template #noAddresses>
+					<span
+						class="address_wrapper-pristine"
+						*ngIf="addressCount === undefined && addressForm.enabled"
+					>
+						{{ 'common.address.pristine' | translink }}
+					</span>
+					<span class="address_wrapper-empty" *ngIf="addressCount === 0">
+						<i class="fa fa-warning"></i>
+						{{ 'common.address.noresults' | translink }}
+					</span>
+				</ng-template>
+
+				<ng-template [ngIf]="!!selected">
+					<div class="address_wrapper-selected">
+						<ng-container *ngFor="let item of selected | keyvalue">
+							<div *ngIf="!!kvHasValue(item)" class="address_wrapper-kv">
+								<label> {{ tlstring + '.' + kvKey(item) | translink }} </label>
+								<span> {{ item.value }} </span>
+							</div>
+						</ng-container>
+					</div>
+
+					<div class="address_wrapper-actions">
+						<ngq-button
+							icon="check-circle"
+							mode="mini"
+							[color]="['success-alt', 'primary-alt']"
+							(click)="confirm()"
+						>
+							{{ 'common.address.select' | translink }}
+						</ngq-button>
+
+						<ngq-button
+							icon="list-ul"
+							mode="mini"
+							[color]="['info-alt', 'primary-alt']"
+							(click)="select()"
+							*ngIf="addressCount > 1"
+							[@fadeInOut]
+						>
+							{{ 'common.address.show' | translink }}
+						</ngq-button>
+					</div>
+				</ng-template>
+			</div>
+		</ngq-description>
+	</div>
+
+	<div class="address_wrapper-current" *ngIf="current && !selected" [@fadeInOut]>
+		<span>
+			{{ current?.street }} {{ current?.street_number }}{{ current?.street_number_additional
+			}}
+			<br />
+			{{ current?.postal_code }} {{ current?.city }}
+		</span>
+
+		<div
+			class="address_wrapper-clear ripple-color"
+			matRipple
+			*ngIf="!!current && !ngq.state && formControl?.enabled"
+			[@fadeInOut]
+			(click)="unlock()"
+		>
+			<i class="fa fa-times-circle"></i>
+		</div>
+	</div>
+</div>

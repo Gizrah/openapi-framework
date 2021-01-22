@@ -1,0 +1,17 @@
+<ngq-lt-list-search></ngq-lt-list-search>
+<header></header>
+<div class="list">
+	<ul>
+		<li
+			*ngFor="let item of items"
+			(click)="select(item)"
+			[ngClass]="{ select: selected === item.id }"
+			[id]="item.id"
+		>
+			{{ item.name }}
+			<ng-container *ngIf="item.days">
+				<ngq-lt-days [days]="item.days"></ngq-lt-days>
+			</ng-container>
+		</li>
+	</ul>
+</div>

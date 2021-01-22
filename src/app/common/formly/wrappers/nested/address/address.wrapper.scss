@@ -1,0 +1,135 @@
+@import 'mixins';
+
+.address_wrapper {
+	ngq-description {
+		margin-bottom: 0;
+	}
+
+	&-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin: 0.75em 0;
+	}
+
+	&-lookup {
+		margin-top: -0.5em;
+	}
+
+	&-fields {
+		margin-top: 0.25em;
+		display: grid;
+		width: 100%;
+		grid-template-columns: calc(45% - 1.75em) calc(27.5% - 0.75em) calc(27.5% - 0.75em) 1em;
+		column-gap: 0.75em;
+	}
+
+	&-button {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		height: 100%;
+		margin-left: -0.25em;
+		margin-right: -0.25em;
+	}
+
+	&-label {
+		position: absolute;
+		top: -1.95em;
+		left: -0.75em;
+		font-size: 0.8em;
+		font-weight: 400;
+		width: calc(100% + 1.5em);
+	}
+
+	&-disabled {
+		opacity: 0.35;
+		pointer-events: none;
+		& * {
+			pointer-events: none;
+		}
+	}
+
+	&-actions {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 0.5em;
+		position: relative;
+	}
+
+	&-results,
+	&-empty,
+	&-pristine {
+		margin-top: 0.5em;
+		margin-left: 0.25em;
+		font-size: 0.9em;
+	}
+
+	&-empty {
+		font-weight: 400;
+		@include var(color, warning);
+	}
+
+	&-pristine {
+		font-style: italic;
+	}
+
+	&-results {
+		font-weight: 400;
+		@include var(color, info);
+	}
+
+	&-selected {
+		display: block;
+		box-sizing: border-box;
+		padding: 0.5em;
+		margin-top: 0.5em;
+		margin-right: 0.25em;
+		position: relative;
+
+		border: 1px solid rgba(0, 0, 0, 0.12);
+
+		border-radius: 0.5em;
+	}
+
+	&-current {
+		box-sizing: border-box;
+		width: auto;
+		display: inline-flex;
+		align-items: stretch;
+		justify-content: space-between;
+		border-radius: 0.35em;
+		margin-top: -0.5em;
+		@include border(border, 1px, solid, text-color, 0.15);
+		@include var(background-color, app-bg, 0.35);
+		transition: all 0.3s;
+
+		span {
+			margin: 0.5em;
+		}
+	}
+
+	&-clear {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0 0.25em;
+		margin-left: 0.125em;
+		border-top-right-radius: 0.35em;
+		border-bottom-right-radius: 0.35em;
+		cursor: pointer;
+		@include border(border-left, 1px, solid, text-color, 0.25);
+
+		.fa {
+			font-size: 0.8em;
+			@include var(color, text-color, 0.25);
+		}
+
+		&:hover {
+			.fa {
+				@include var(color, warning, 0.5);
+			}
+		}
+	}
+}

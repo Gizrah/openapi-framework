@@ -1,0 +1,95 @@
+@import 'mixins';
+@import 'media-queries';
+
+:host {
+	display: inline-block;
+	margin: 0 auto;
+	overflow: hidden;
+	border-radius: 0.35em;
+	box-sizing: border-box;
+	width: auto;
+	align-self: flex-start;
+	@include var(background-color, white);
+
+	@include tablet-up {
+		max-width: 50vw;
+	}
+
+	@include tablet-down {
+		max-width: 80vw;
+	}
+}
+
+.ngq_response {
+	&-shade {
+		@include shade();
+	}
+
+	&-wrap {
+		@include border(border-top, 1px, solid, #ccc);
+		@include border(border-right, 1px, solid, #ccc);
+		@include border(border-bottom, 1px, solid, #ccc);
+
+		border-left-width: 0.5em;
+		border-left-style: solid;
+		padding: 0.75em;
+		border-radius: 0.35em;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+
+		i {
+			display: flex;
+			align-items: center;
+			padding-right: 0.75em;
+			font-size: 1em;
+		}
+
+		span {
+			font-size: 1em;
+			display: block;
+			@include var(color, text-color);
+		}
+	}
+
+	&-error {
+		@include var(border-left-color, error);
+		@include var(background-color, error, 0.02);
+		i {
+			@include var(color, error);
+		}
+	}
+
+	&-warning {
+		@include var(border-left-color, warning);
+		@include var(background-color, warning, 0.02);
+		i {
+			@include var(color, warning);
+		}
+	}
+
+	&-info {
+		@include var(border-left-color, info);
+		@include var(background-color, info, 0.02);
+		i {
+			@include var(color, info);
+		}
+	}
+
+	&-success {
+		@include var(border-left-color, success);
+		@include var(background-color, success, 0.02);
+		i {
+			@include var(color, success);
+		}
+	}
+
+	&-default {
+		@include var(border-left-color, primary-light);
+		@include var(background-color, app-bg, 0.02);
+		i {
+			display: none;
+		}
+	}
+}

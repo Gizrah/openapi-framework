@@ -1,0 +1,74 @@
+@import './media-queries';
+
+.list-4 {
+	@include phone {
+		width: 100%;
+	}
+
+	@include tablet-up {
+		width: listsize(1rem, 2, rem, 100%);
+	}
+
+	@include tablet-landscape {
+		width: listsize(1rem, 3, rem, 100%);
+	}
+
+	@include desktop {
+		width: listsize(1rem, 4, rem, 100%);
+	}
+
+	@include desktop-xl {
+		width: listsize(1rem, 5, rem, 100%);
+	}
+
+	@include desktop-xxl {
+		width: listsize(1rem, 8, rem, 100%);
+	}
+
+	@include desktop-4k {
+		width: listsize(1rem, 10, rem, 100%);
+	}
+
+	@include desktop-5k {
+		width: listsize(1rem, 12, rem, 100%);
+	}
+}
+
+.list-3 {
+	@include phone {
+		width: 100%;
+	}
+
+	@include tablet-up {
+		width: listsize(1rem, 2, rem, 100%);
+	}
+
+	@include desktop {
+		width: listsize(1rem, 3, rem, 100%);
+	}
+
+	@include desktop-xl {
+		width: listsize(1rem, 4, rem, 100%);
+	}
+
+	@include desktop-xxl {
+		width: listsize(1rem, 5, rem, 100%);
+	}
+
+	@include desktop-4k {
+		width: listsize(1rem, 6, rem, 100%);
+	}
+
+	@include desktop-5k {
+		width: listsize(1rem, 8, rem, 100%);
+	}
+}
+
+.list-1 {
+	width: 100%;
+}
+
+.list-0 {
+	width: auto;
+	display: inline-block !important;
+}

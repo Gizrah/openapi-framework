@@ -1,0 +1,23 @@
+<div class="shift">
+	<div class="shift__total">
+		<div class="shift__groups">
+			<ng-container *ngFor="let group of shiftTotal.groups">
+				<div class="group">
+					<div class="group__name">{{ group.name }}</div>
+
+					<span class="group__total">{{ group.items.length }}</span>
+				</div>
+			</ng-container>
+		</div>
+		<div class="total">
+			<div class="total__item">
+				<span class="total__icon fa fa-user"></span>
+				<div class="total__to-plan total__number">20</div>
+			</div>
+			<div class="total__item">
+				<span class="total__icon fa fa-user"></span>
+				<div class="total__planned total__number">10</div>
+			</div>
+		</div>
+	</div>
+</div>

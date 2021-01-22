@@ -1,0 +1,66 @@
+@import 'mixins';
+
+.ngq_tile {
+	&-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+		width: 100%;
+
+		& > * {
+			width: 100%;
+		}
+	}
+
+	&-subject {
+		display: inline-block;
+		width: fit-content;
+		margin-bottom: 0.5em;
+	}
+
+	&-avatar {
+		margin-top: 0.25em;
+		margin-bottom: 0.75em;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		ngq-avatar {
+			margin-right: 0.5em;
+		}
+
+		.underline {
+			display: inline-block;
+		}
+	}
+
+	&-select {
+		pointer-events: none;
+		position: absolute;
+		opacity: 0;
+		right: 0.5em;
+		top: 0.375em;
+		transition: all 0.1s ease-out;
+	}
+}
+
+ngq-description {
+	margin-bottom: 0.25em;
+}
+
+ngq-card {
+	padding-bottom: 0.25em;
+	overflow-x: hidden;
+	cursor: pointer;
+
+	@include hoverline();
+
+	&:hover,
+	& *:hover {
+		.ngq_tile-select {
+			opacity: 1;
+			right: 0.5em;
+			transition: all 0.25s ease-in;
+		}
+	}
+}

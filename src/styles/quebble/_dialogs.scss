@@ -1,0 +1,131 @@
+@import './mixins';
+
+.cdk-overlay-container {
+	.mat-dialog-container {
+		padding: 0;
+		border-radius: 0;
+		overflow: visible;
+
+		.mat-dialog-title {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			@include var(background-color, primary-light);
+			margin-bottom: 0;
+			height: 2.6em;
+			box-sizing: border-box;
+			padding-right: 0.275em;
+
+			h3 {
+				margin-left: 0.625em;
+				@include var(color, white);
+				font-weight: 400;
+				font-size: 1.1em;
+				line-height: 1;
+			}
+
+			ngq-button {
+				.ngq_button {
+					border-radius: 0;
+					@include var(background-color, dialog-close, 0.5);
+
+					&-button {
+						height: 2em;
+						width: 2em;
+					}
+				}
+			}
+		}
+
+		.mat-dialog-content {
+			box-sizing: border-box;
+			padding: 1.5rem 1rem;
+			margin: 0;
+
+			&-breadcrumbs {
+				padding: 1rem;
+			}
+		}
+
+		.mat-dialog-actions {
+			position: relative;
+			justify-content: space-between;
+			margin-bottom: 0;
+			padding: 0.5rem 1rem;
+			min-height: auto;
+			@include border(border-top, 0.0625rem, solid, app-bg);
+
+			ngq-response {
+				margin-bottom: 0.5em;
+			}
+		}
+
+		.ngq_dialog {
+			&-rest {
+				@include tablet-up {
+					display: block;
+					width: 26rem;
+					max-width: 80vw;
+					transition: width 150ms ease-in-out;
+				}
+
+				@include phone {
+					width: 80vw;
+				}
+
+				&-double {
+					@include tablet-up {
+						display: block;
+						width: 52rem;
+						max-width: 90vw;
+						transition: width 150ms ease-in-out;
+					}
+
+					@include phone {
+						width: 80vw;
+					}
+				}
+			}
+
+			&-login {
+				@include tablet-up {
+					display: block;
+					width: 26rem;
+					max-width: 80vw;
+					transition: width 150ms ease-in-out;
+				}
+
+				@include phone {
+					width: 80vw;
+				}
+
+				.mat-dialog-content {
+					padding: 1rem;
+				}
+			}
+
+			&-noprogress {
+				height: 4px;
+				width: 100%;
+				@include var(background-color, accent);
+			}
+
+			&-required {
+				position: absolute;
+				top: -1em;
+				left: 0.5em;
+				padding: 0.1em 0.3em 0.1em 0.2em;
+				font-size: 0.8em;
+				font-weight: 400;
+				border-radius: 0.25em;
+				@include var(color, text-color, 0.4);
+				@include var(background-color, white);
+				@include border(border, solid, 0.0625rem, app-bg);
+			}
+
+			&-basis {
+				flex-basis: 100%;
+			}
+		}
+	}
+}

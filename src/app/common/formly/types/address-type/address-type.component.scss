@@ -1,0 +1,130 @@
+@import 'mixins';
+
+.address_type {
+	&-title {
+		margin: 0.75em 0 0.25em 0;
+		display: flex;
+		align-items: center;
+	}
+
+	&-fields {
+		& > *:not(:last-child) {
+			margin-bottom: 0.5em;
+		}
+	}
+
+	&-button {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		height: 100%;
+		padding-top: 0.25em;
+		margin-left: -0.25em;
+	}
+
+	&-row {
+		&-A {
+			display: grid;
+			width: 100%;
+			grid-template-columns: calc(45% - 1.75em) calc(27.5% - 0.75em) calc(27.5% - 0.75em) 1em;
+			column-gap: 0.75em;
+		}
+	}
+
+	&-results,
+	&-empty,
+	&-pristine {
+		margin-top: 0.5em;
+		margin-left: 0.25em;
+		font-size: 0.9em;
+	}
+
+	&-empty {
+		font-weight: 400;
+		@include var(color, warning);
+	}
+
+	&-pristine {
+		font-style: italic;
+	}
+
+	&-results {
+		font-weight: 400;
+		@include var(color, info);
+	}
+
+	&-actions {
+		display: block;
+		margin-top: 0.5em;
+		margin-bottom: 0.25em;
+		margin-left: -0.5em;
+		width: 100%;
+	}
+
+	&-single {
+		display: block;
+		box-sizing: border-box;
+		padding: 0.5em;
+		margin-top: 0.5em;
+		margin-right: 0.25em;
+		position: relative;
+
+		border: 1px solid rgba(0, 0, 0, 0.12);
+
+		border-radius: 0.5em;
+	}
+
+	&-list {
+		position: absolute;
+		top: -0.5em;
+		left: 0;
+		width: 24em;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: flex-start;
+	}
+
+	&-active {
+		@include gradient(accent, error, null, -60deg);
+		@include border(border-right, 0.2em, solid, accent);
+		margin-left: -0.5em;
+		margin-right: -0.4em;
+		padding: 0.2em 0.2em 0.2em 0.5em;
+		border-radius: 0.4em;
+	}
+
+	&-options {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		margin-bottom: 0.5em;
+
+		label {
+			font-size: 1.1em;
+			font-weight: 400;
+			@include var(color, primary);
+		}
+	}
+
+	&-selected {
+		width: auto;
+		margin: 0;
+		display: inline-block;
+	}
+
+	&-before {
+		position: relative;
+		display: block;
+
+		&:before {
+			content: '';
+			@include var(background-color, text-color, 0.15);
+			position: absolute;
+			width: 1px;
+			height: 1.3em;
+			left: -3px;
+			top: calc(50% - 0.65em);
+		}
+	}
+}

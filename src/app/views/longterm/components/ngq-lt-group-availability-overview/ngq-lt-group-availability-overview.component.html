@@ -1,0 +1,157 @@
+<div class="container">
+	<div class="lt__groups">
+		<header class="groups__title">Piet Versteeg</header>
+		<div class="locations__wrapper">
+			<section class="locations">
+				<div class="location__item" *ngFor="let location of locations">
+					<header class="location__name">
+						<strong>{{ location.name }}</strong>
+					</header>
+					<div class="location__groups">
+						<div class="groups__item" *ngFor="let category of location.locations">
+							<div class="group__category">
+								<strong>{{ category.name }}</strong>
+							</div>
+							<div class="group__list">
+								<div class="group__item" *ngFor="let group of category.groups">
+									<div class="group__name">
+										<strong class="name">{{ group.name }}</strong>
+
+										<div class="tooltip" *ngIf="group.name.length > 4">
+											<strong>{{ group.name }}</strong>
+										</div>
+									</div>
+									<div class="group__occupation">
+										<div class="tile">
+											<div
+												class="tile__content"
+												[ngClass]="{ selected: group.selected }"
+											>
+												<span
+													*ngIf="group.availability === 0"
+													[ngClass]="{
+														available: group.availability === 0
+													}"
+													class="fa fa-check-circle"
+												></span>
+												<span
+													*ngIf="group.availability === 1"
+													[ngClass]="{ maybe: group.availability === 1 }"
+													class="fa fa-question-circle"
+												></span>
+												<span
+													*ngIf="group.availability === 2"
+													[ngClass]="{
+														unavailable: group.availability === 2
+													}"
+													class="fa fa-times-circle"
+												></span>
+											</div>
+											<div class="tile__hover">
+												<div
+													class="tile__action"
+													(click)="select(group)"
+													[ngClass]="{
+														'action--select': !group.selected,
+														'action--cancel': group.selected
+													}"
+													[title]="
+														!group.selected
+															? 'Selecteer groep'
+															: 'Deselecteer groep'
+													"
+												>
+													<span
+														class="fa fa-times-circle"
+														[ngClass]="{
+															'fa-times-circle': group.selected,
+															'fa-check-circle': !group.selected
+														}"
+													></span>
+												</div>
+												<div class="tile__action action--details" (click)="selectGroupDetails(location, group)">
+													<span class="fa fa-info-circle"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<aside class="locations__choice">
+				<header class="choices__header">
+					<strong>Keuze</strong>
+				</header>
+				<div class="choices">
+					<div class="choice" *ngFor="let choice of selected">
+						<div class="choice__column">
+							<strong>{{ choice.name }}</strong>
+						</div>
+						<div class="choice__column">{{choice.startDate}}</div>
+						<div class="choice__column">{{choice.endDate}}</div>
+					</div>
+				</div>
+			</aside>
+		</div>
+		<footer class="locations__footer">
+			<ngq-button color="accent" icon="check-circle">Bevestig</ngq-button>
+		</footer>
+	</div>
+
+	<div class="lt__groups--details" *ngIf="selectedGroupDetails">
+		<header class="groups__title">Locatie {{selectedGroupDetails.location.name}} -- Groep {{selectedGroupDetails.group.cat}}  {{selectedGroupDetails.group.name}} </header>
+		<div class="occupation">
+			<header class="occupation__row occupation__header">
+				<div class="occupation__col">
+					<strong>Week nr</strong>
+				</div>
+				<div class="occupation__col">
+					<strong>Ma</strong>
+				</div>
+				<div class="occupation__col">
+					<strong>Di</strong>
+				</div>
+				<div class="occupation__col">
+					<strong>Wo</strong>
+				</div>
+				<div class="occupation__col">
+					<strong>Do</strong>
+				</div>
+				<div class="occupation__col">
+					<strong>Vr</strong>
+				</div>
+				<div class="occupation__col">
+					<strong>Za</strong>
+				</div>
+				<div class="occupation__col">
+					<strong>Zo</strong>
+				</div>
+			</header>
+			<div class="occupation__row" *ngFor="let week of occupationDetails">
+				<div class="occupation__col"><strong>{{week.weekNr}}</strong></div>
+				<div class="occupation__col" *ngFor="let day of week.days">
+					<div class="occupation__items">
+						<div class="occupation__item">
+							<div class="occupation__item-tile" [ngClass]="{'occupation__status--green': day.bkr === 1, 'occupation__status--orange': day.bkr === 2, 'occupation__status--red': day.bkr === 3}">
+								<span class="occupation__icon">
+									<span class="fa fa-user"></span
+								></span>
+								<span class="occupation__value">{{day.value.professional}}</span>
+							</div>
+							<div class="occupation__item-tile" [ngClass]="{'occupation__status--green': day.bkr === 1, 'occupation__status--orange': day.bkr === 2, 'occupation__status--red': day.bkr === 3}">
+								<span class="occupation__icon">
+									<span class="fa fa-smile-o"></span
+								></span>
+								<span class="occupation__value">{{day.value.kids}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

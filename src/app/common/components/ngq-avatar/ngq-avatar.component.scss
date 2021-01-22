@@ -1,0 +1,107 @@
+@import 'mixins';
+
+:host {
+	display: block;
+	width: 3em;
+	height: 3em;
+	position: relative;
+}
+
+$half: 1px;
+$border: 2px;
+$color: getColor(accent);
+$color2: getColor(accent, 0);
+$transition: ease-out, cubic-bezier(0.82, 0.1, 0.14, 1.12);
+
+@keyframes boxShadow {
+	0% {
+		box-shadow: 0 0 0 0 #{$color};
+	}
+	25% {
+		box-shadow: 0 0 0 #{$half} #{$color};
+	}
+	50% {
+		box-shadow: 0 0 0 #{$border + $half} #{$color};
+	}
+	100% {
+		box-shadow: 0 0 0 #{$border} #{$color};
+	}
+}
+
+@keyframes unBoxing {
+	0% {
+		box-shadow: 0 0 0 #{$border} #{$color};
+	}
+	100% {
+		box-shadow: 0 0 0 #{$border + $border} #{$color2};
+	}
+}
+
+.ngq_avatar {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+
+	&-image,
+	&-icon {
+		border-radius: 100%;
+		width: 100%;
+		height: 100%;
+		box-sizing: border-box;
+		position: relative;
+		flex-shrink: 0;
+		display: block;
+	}
+
+	img {
+		width: 100%;
+		height: 100%;
+		border-radius: 100%;
+		flex-shrink: 0;
+		display: block;
+	}
+
+	&-icon {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@include var(background-color, app-bg-light);
+		transition: all 0.2s;
+		flex-shrink: 0;
+	}
+
+	&-selected {
+		.ngq_avatar {
+			&-image,
+			&-icon {
+				box-shadow: 0 0 0 #{$border} $color;
+			}
+		}
+	}
+	&-hover {
+		.ngq_avatar {
+			&-image,
+			&-icon {
+				animation: unBoxing 200ms;
+				animation-timing-function: #{$transition};
+				transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
+
+				&:hover {
+					cursor: pointer;
+					animation: boxShadow 300ms;
+					animation-fill-mode: forwards;
+					animation-timing-function: #{$transition};
+				}
+			}
+
+			&-icon:hover {
+				@include var(background-color, app-bg-hover);
+				transition: all 0.3s #{$transition};
+			}
+		}
+	}
+}

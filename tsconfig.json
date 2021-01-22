@@ -1,0 +1,42 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"allowJs": true,
+		"baseUrl": "./src",
+		"outDir": "./dist/out-tsc",
+		"sourceMap": true,
+		"declaration": false,
+		"downlevelIteration": true,
+		"experimentalDecorators": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"importHelpers": true,
+		"target": "ES6",
+		"typeRoots": ["node_modules/@types"],
+		"lib": ["es2018", "dom"],
+		"resolveJsonModule": true,
+		"paths": {
+			"@quebble/classes": ["app/common/classes/index.ts"],
+			"@quebble/components": ["app/common/components/index.ts"],
+			"@quebble/decorators": ["app/common/decorators/index.ts"],
+			"@quebble/dialogs": ["app/dialogs/index.ts"],
+			"@quebble/directives": ["app/common/directives/index.ts"],
+			"@quebble/enums": ["app/common/enums/index.ts"],
+			"@quebble/environment": ["environments/environment.ts"],
+			"@quebble/formly": ["app/common/formly/index.ts"],
+			"@quebble/interfaces": ["app/common/interfaces/index.ts"],
+			"@quebble/models": ["app/common/models/index.ts"],
+			"@quebble/pipes": ["app/common/pipes/*"],
+			"@quebble/scripts": ["app/common/scripts/index.ts"],
+			"@quebble/services": ["app/common/services/index.ts"],
+			"@quebble/types": ["app/common/types/index.ts"],
+			"@quebble/openapi": ["app/common/services/openapi/index.ts"],
+			"@quebble/animations": ["app/common/animations/index.ts"],
+			"@quebble/consts": ["app/common/consts/index.ts"]
+		}
+	},
+	"angularCompilerOptions": {
+		"fullTemplateTypeCheck": true,
+		"strictInjectionParameters": true
+	}
+}

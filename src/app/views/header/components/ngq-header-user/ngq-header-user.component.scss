@@ -1,0 +1,245 @@
+@import 'mixins';
+
+:host {
+	height: 100%;
+	flex-shrink: 0;
+	box-sizing: border-box;
+
+	&.ngq_header_user {
+		&-menu {
+			height: auto;
+			width: auto;
+			display: block;
+			position: absolute;
+			top: 0.75em;
+			right: 0.5em;
+			border-radius: 0.5em;
+		}
+
+		&-active {
+			top: 0.5em;
+			right: 0.5em;
+			padding: 0;
+			z-index: 99999;
+		}
+	}
+}
+
+.ngq_header_user {
+	display: flex;
+	height: 100%;
+	width: auto;
+	align-items: center;
+	justify-content: flex-end;
+
+	&-avatar {
+		flex-shrink: 0;
+		display: block;
+		padding: 0.2em;
+		border-radius: 100%;
+		margin-right: 0.75em;
+		transition: all 0.25s 0.1s;
+
+		cursor: pointer;
+
+		&.bg-error {
+			@include pulse(error);
+		}
+		&.bg-info {
+			@include pulse(info);
+		}
+	}
+
+	&-menu {
+		height: auto;
+		width: auto;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		flex-direction: column;
+		border-radius: 0.5em;
+		padding: 0.75em 0.75em;
+
+		@include var(background-color, 'white', 0);
+		@include shade();
+
+		&.menu-active {
+			overflow-x: hidden;
+			overflow-y: auto;
+			z-index: 9999;
+			padding: 0.75em 0.75em;
+
+			@include var(background-color, 'white', 0.95);
+
+			transition: all 0.1s;
+
+			.ngq_header_user {
+				&-current {
+					padding: 0;
+
+					ngq-avatar {
+						transition: all 0.25s;
+					}
+				}
+
+				&-dev {
+					&-random,
+					&-loading {
+						width: 1em;
+						height: 1em;
+						transition: all 0.25s;
+
+						.fa {
+							font-size: 0.6em;
+							transition: all 0.25s;
+						}
+					}
+
+					&-random {
+						top: 0.5em;
+						right: 0.9em;
+					}
+
+					&-loading {
+						top: 2em;
+						right: 0.2em;
+					}
+				}
+			}
+		}
+	}
+
+	&-menuitems {
+		display: block;
+		width: 100%;
+	}
+
+	&-menuitem {
+		display: grid;
+		width: 100%;
+		grid-template-columns: 2em auto;
+		padding: 0.25em 0;
+		box-sizing: border-box;
+		border-radius: 0.25em;
+		cursor: pointer;
+
+		@include amplify-on-hover((0.25em, 0));
+
+		span.first {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-sizing: border-box;
+			font-size: 0.85em;
+		}
+
+		span.second {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			box-sizing: border-box;
+			font-weight: 300;
+
+			&.button-content-primary-alt {
+				margin-left: 0;
+			}
+		}
+	}
+
+	&-info {
+		font-size: 0.8em;
+		max-width: 17.5em;
+		padding: 0 1.5em;
+		margin: 0 0 0.25em 0;
+		box-sizing: border-box;
+		@include var(color, text-color, 0.4);
+	}
+
+	&-seperator {
+		height: 0.0625em;
+		width: calc(100% + 0.5em);
+		margin: 0.75em -0.25em;
+		@include var(background-color, app-bg);
+	}
+
+	&-current {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		height: auto;
+		width: auto;
+
+		cursor: pointer;
+
+		.ngq_header_user-avatar {
+			margin: 0;
+			@include var(background-color, warning, 0.75);
+
+			transition: all 0.25s 0.1s;
+
+			ngq-avatar {
+				transition: all 0.25s;
+			}
+
+			&:hover {
+				@include var(background-color, warning, 1);
+				@include pulse(warning, 0.5em, 0.25s, 1);
+
+				transition: all 0.25s;
+			}
+		}
+	}
+
+	&-name {
+		margin-right: 0.75em;
+		flex-shrink: 0;
+		text-align: right;
+
+		label.accent {
+			display: block;
+			font-size: 1em;
+		}
+
+		span {
+			display: block;
+			margin-top: -0.35em;
+			font-size: 0.9em;
+		}
+	}
+
+	&-dev {
+		&-random,
+		&-loading {
+			width: 0.7em;
+			height: 0.7em;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 100%;
+			position: absolute;
+			transition: all 0.2s;
+			@include var(background-color, success);
+			@include var(color, 'white');
+			@include border(border, 2px, solid, 'white');
+
+			.fa {
+				font-size: 0.5em;
+				transition: all 0.25s;
+			}
+		}
+
+		&-random {
+			top: 0.5em;
+			right: 0.8em;
+		}
+
+		&-loading {
+			top: 1.4em;
+			right: 0.3em;
+		}
+	}
+}
+
+span.button-content-primary-alt {
+	margin-left: 0.5em;
+}

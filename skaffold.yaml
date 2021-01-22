@@ -1,0 +1,62 @@
+apiVersion: skaffold/v1beta17
+kind: Config
+build:
+  artifacts:
+  - image: eu.gcr.io/quebble-container-images/quebble-frontend
+  local:
+    useBuildkit: true
+    push: true
+
+deploy:
+  helm:
+    releases:
+    - name: quebble-frontend
+      namespace: quebble
+      chartPath: helm/quebble-frontend
+      values:
+        dockerImage: eu.gcr.io/quebble-container-images/quebble-frontend
+
+profiles:
+- name: test
+  deploy:
+    kubeContext: gke_quebble-platform-test_europe-west4-a_quebble-platform-test
+  patches:
+    - op: add
+      path: /deploy/helm/releases/0/valuesFiles
+      value: 
+      - helm/quebble-frontend/values-test.yaml
+- name: demo
+  deploy:
+    kubeContext: gke_quebble-platform-demo_europe-west4-a_quebble-platform-demo
+  patches:
+    - op: add
+      path: /deploy/helm/releases/0/valuesFiles
+      value: 
+      - helm/quebble-frontend/values-demo.yaml
+
+- name: test
+  deploy:
+    kubeContext: gke_quebble-platform-test_europe-west4-a_quebble-platform-test
+  patches:
+    - op: add
+      path: /deploy/helm/releases/0/valuesFiles
+      value: 
+      - helm/quebble-frontend/values-test.yaml
+
+- name: staging
+  deploy:
+    kubeContext: gke_quebble-platform-staging_europe-west4-a_quebble-platform-staging
+  patches:
+    - op: add
+      path: /deploy/helm/releases/0/valuesFiles
+      value: 
+      - helm/quebble-frontend/values-staging.yaml
+
+- name: prod
+  deploy:
+    kubeContext: gke_quebble-platform-prod_europe-west4_quebble-platform-prod
+  patches:
+    - op: add
+      path: /deploy/helm/releases/0/valuesFiles
+      value: 
+      - helm/quebble-frontend/values-prod.yaml

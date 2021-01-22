@@ -1,0 +1,43 @@
+.translations {
+	&-list {
+		display: inline-block;
+		height: auto;
+		margin: 0.5em;
+	}
+	&-form {
+		width: 100%;
+		min-width: 47.5em;
+		max-width: 90vw;
+	}
+
+	&-cards {
+		display: flex;
+	}
+}
+
+.avatar {
+	&-wrap {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&-row {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-evenly;
+
+		margin: -0.5em;
+		margin-bottom: -1.2em;
+
+		& > * {
+			margin: 0.5em 1em;
+		}
+	}
+
+	&-link {
+		line-height: 3em;
+	}
+}

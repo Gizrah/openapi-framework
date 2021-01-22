@@ -1,0 +1,335 @@
+@import 'media-queries';
+@import 'mixins';
+
+formly-form {
+	width: 100%;
+
+	&.break,
+	.nested_single-break {
+		ngq-row-label-input,
+		.inline_loader-field {
+			display: block;
+		}
+
+		.inline_loader-icons {
+			position: absolute;
+			top: 0.25em;
+			right: 0;
+		}
+	}
+
+	.inline_loader-field {
+		display: grid;
+		grid-template-columns: [labels] 3fr [input] 5fr [icons] 1fr;
+		grid-template-rows: none;
+
+		label {
+			grid-area: labels;
+			align-self: center;
+		}
+
+		formly-wrapper-mat-form-field {
+			grid-area: input;
+		}
+
+		.inline_loader-icons {
+			grid-area: icons;
+		}
+	}
+
+	ngq-description {
+		.mat-form-field-outline {
+			& > * {
+				@include var(background-color, 'white');
+			}
+		}
+	}
+
+	.nested_single {
+		&-field {
+			&-active,
+			&-invalid {
+				.ngq-form-validity {
+					margin-left: -0.5em;
+					margin-right: -0.4em;
+					padding: 0.2em 0.2em 0.2em 0.5em;
+					border-radius: 0.4em;
+				}
+
+				.ngq-form-active.fa {
+					font-size: 0.9em;
+					@include var(color, info);
+				}
+			}
+
+			&-active {
+				.ngq-form-validity {
+					@include gradient(accent, error, null, -60deg);
+					@include border(border-right, 0.2em, solid, accent);
+				}
+			}
+
+			&-invalid {
+				.ngq-form-validity {
+					label.accent {
+						@include var(color, error);
+					}
+
+					@include gradient(error, error, 0.3, -60deg);
+					@include border(border-right, 0.2em, solid, error);
+				}
+			}
+		}
+	}
+}
+
+ngq-row-label-input,
+ngq-formly-label-top,
+.inline_loader-field,
+.item_type-search,
+.formly-custom-fields {
+	.mat-form-field-infix {
+		padding: 0.1rem 0 0.5rem !important;
+		height: 2.75rem;
+		box-sizing: border-box;
+		border-top-width: 0.75em !important;
+	}
+
+	&.input-textarea {
+		.mat-form-field-infix {
+			padding: 0.1rem 0 1rem !important;
+			height: auto;
+		}
+	}
+
+	.mat-select-arrow-wrapper {
+		transform: translateY(0) !important;
+	}
+
+	.mat-form-field-wrapper {
+		padding-bottom: 0 !important;
+	}
+
+	.mat-form-field-type {
+		&-checkbox {
+			width: auto !important;
+			width: fit-content !important;
+			.mat-form-field-infix {
+				width: auto;
+				width: fit-content;
+			}
+
+			.mat-form-field-label-wrapper {
+				display: none;
+				width: 0;
+			}
+		}
+
+		&-boolean {
+			.mat-form-field-wrapper {
+				display: inline-flex;
+				width: auto;
+				justify-content: flex-start;
+				align-items: center;
+			}
+
+			.mat-form-field-flex {
+				width: auto;
+			}
+
+			.mat-form-field-infix {
+				border-top: 0 !important;
+				padding: 0 !important;
+				display: inline-flex;
+				justify-content: flex-start;
+				align-items: center;
+				width: auto;
+			}
+
+			.mat-form-field-label-wrapper {
+				display: none;
+			}
+
+			.mat-form-field-subscript-wrapper {
+				position: relative;
+				top: 0;
+				left: 0;
+				margin: 0;
+
+				formly-validation-message {
+					border: 0;
+					padding: 0;
+				}
+			}
+		}
+	}
+
+	.mat-form-field-required-marker {
+		display: none;
+	}
+
+	.ngq-formly--tel {
+		.ng-valid {
+			background-color: green;
+		}
+	}
+
+	.mat-form-field-subscript-wrapper {
+		display: inline-block;
+		top: auto;
+		bottom: -0.9rem;
+		right: 0.5rem;
+		margin-top: 0;
+		width: auto;
+		padding: 0 !important;
+		box-sizing: border-box;
+
+		.mat-error {
+			margin: 0.5rem 0.2rem;
+
+			formly-validation-message {
+				@include var(color, error);
+				@include var(border-color, error);
+			}
+		}
+
+		formly-validation-message {
+			padding: 0.1em 0.2em !important;
+			font-weight: 500;
+			border-radius: 0.25em;
+			box-sizing: border-box;
+			@include var(color, text-color, 0.4);
+			@include var(background-color, white);
+			@include border(border, solid, 0.0625rem, app-bg);
+		}
+	}
+}
+
+ngq-row-label-input {
+	display: grid;
+	grid-template-columns: [labels] 3fr [input] 6fr;
+	grid-template-rows: none;
+
+	& > :first-child {
+		grid-area: labels;
+		align-self: center;
+	}
+
+	& > :last-child {
+		grid-area: input;
+	}
+
+	&.input-textarea {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+
+		& > :first-child {
+			align-self: flex-start;
+		}
+
+		& > :last-child {
+			width: 100%;
+		}
+	}
+
+	.mat-form-field-infix {
+		width: 100%;
+	}
+}
+
+.formly-custom-fields {
+	.custom-fields {
+		&-row {
+			display: flex;
+
+			&-label {
+				display: grid;
+				grid-template-columns: [labels] 3fr [input] 6fr;
+				grid-template-rows: none;
+
+				& > :first-child {
+					grid-area: labels;
+					align-self: center;
+				}
+
+				& > :last-child {
+					grid-area: input;
+				}
+			}
+
+			.mat-form-field-infix {
+				width: 100%;
+			}
+		}
+	}
+
+	.field-row-inputs {
+		display: flex;
+
+		& > *:not(:first-child) {
+			margin-left: 1em;
+		}
+
+		&-column {
+			display: flex;
+			flex-direction: column;
+		}
+	}
+}
+
+.ngq-formly- {
+	&-object {
+		width: 100%;
+	}
+	&-radio {
+		ngq-row-label-input {
+			margin: 0.5rem 0;
+
+			&.input-textarea {
+				.mat-form-field-flex {
+					padding: 0;
+				}
+
+				.mat-form-field-infix {
+					border-top: 0;
+					padding-bottom: 0 !important;
+				}
+
+				.mat-radio-group {
+					display: block;
+
+					.mat-radio-button {
+						margin: 0.5rem;
+					}
+
+					.mat-radio-label-content {
+						font-weight: 300;
+					}
+				}
+			}
+		}
+	}
+
+	&-XS {
+		ngq-row-label-input {
+			grid-template-columns: [labels] 3fr [input] 1fr [cleared] 5fr;
+		}
+	}
+	&-S {
+		ngq-row-label-input {
+			grid-template-columns: [labels] 3fr [input] 2fr [cleared] 4fr;
+		}
+	}
+	&-M {
+		ngq-row-label-input {
+			grid-template-columns: [labels] 3fr [input] 3fr [cleared] 3fr;
+		}
+	}
+	&-L {
+		ngq-row-label-input {
+			grid-template-columns: [labels] 3fr [input] 4fr [cleared] 2fr;
+		}
+	}
+}

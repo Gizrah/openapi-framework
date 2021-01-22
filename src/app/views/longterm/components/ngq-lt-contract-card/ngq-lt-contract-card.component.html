@@ -1,0 +1,97 @@
+<div class="contract">
+	<header class="contract__header">
+		<h2>{{ contract.fullName }}</h2>
+		<em>Leeftijd: {{ contract.dateOfBirth }}</em>
+	</header>
+
+	<section class="contract__general">
+		<form [formGroup]="form">
+			<div class="information">
+				<div class="info__row-group">
+					<div class="info__row">
+						<div class="info__col info__col--label">
+							<strong>Locatie:</strong>
+						</div>
+						<div class="info__col info__col--value">Locatie A</div>
+					</div>
+					<div class="info__row">
+						<div class="info__col info__col--label">
+							<strong>Dagen:</strong>
+						</div>
+						<div class="info__col info__col--value">
+							<ngq-lt-days [days]="contract.days"></ngq-lt-days>
+						</div>
+					</div>
+					<div class="info__row">
+						<div class="info__col info__col--label">
+							<strong>Producten:</strong>
+						</div>
+						<div class="info__col info__col--value">
+							<ng-container *ngIf="_hasProducts">
+								<ul>
+									<li *ngFor="let item of contract.products">{{ item }}</li>
+								</ul>
+							</ng-container>
+							<ng-container *ngIf="!_hasProducts">
+								<em>Geen producten gekozen</em>
+							</ng-container>
+						</div>
+					</div>
+				</div>
+				<div class="info__row-group">
+					<div class="info__row">
+						<div class="info__col info__col--label">
+							<strong>Ingangsdatum:</strong>
+						</div>
+						<div class="info__col info__col--value">
+							{{ contract.startDate }}
+						</div>
+					</div>
+					<div class="info__row">
+						<div class="info__col info__col--label">
+							<strong>Status:</strong>
+						</div>
+						<div class="info__col info__col--value">Aanbieding</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="proposal">
+				<div class="table__wrapper">
+					<header class="table__header"><strong>Voorstel</strong></header>
+					<table mat-table [dataSource]="contract.proposals">
+						<ng-container matColumnDef="groupType">
+							<th mat-header-cell *matHeaderCellDef></th>
+							<td mat-cell *matCellDef="let element">{{ element.groupType }}</td>
+						</ng-container>
+						<ng-container matColumnDef="locationName">
+							<th mat-header-cell *matHeaderCellDef></th>
+							<td mat-cell *matCellDef="let element">{{ element.locationName }}</td>
+						</ng-container>
+						<ng-container matColumnDef="groupName">
+							<th mat-header-cell *matHeaderCellDef></th>
+							<td mat-cell *matCellDef="let element">{{ element.groupName }}</td>
+						</ng-container>
+						<ng-container matColumnDef="startDate">
+							<th mat-header-cell *matHeaderCellDef></th>
+							<td mat-cell *matCellDef="let element">
+								{{ element.startDateFormatted }} - {{ element.endDateFormatted }}
+							</td>
+						</ng-container>
+
+						<!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+						<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+					</table>
+				</div>
+			</div>
+			<span class="button-wrapper">
+				<ngq-button mode="large" color="accent" type="submit" class="btn btn-primary submit-button">
+					Submit
+				</ngq-button>
+				<ngq-button mode="large" color="dark" type="submit" class="btn btn-primary submit-button">
+					Cancel
+				</ngq-button>
+			</span>
+		</form>
+	</section>
+</div>

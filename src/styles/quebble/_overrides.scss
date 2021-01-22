@@ -1,0 +1,132 @@
+@import './mixins';
+
+@keyframes colorLoop {
+	0% {
+		@include var(background-color, accent, 0.3);
+	}
+	100% {
+		@include var(background-color, error, 0.2);
+	}
+}
+
+@keyframes flatLoop {
+	0% {
+		@include var(background-color, accent, 0.15);
+	}
+	100% {
+		@include var(background-color, app-bg, 0.35);
+	}
+}
+
+.ripple-color {
+	.mat-ripple-element {
+		animation: colorLoop 450ms;
+		animation-fill-mode: forwards;
+		animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+	}
+}
+
+.ripple-flat {
+	.mat-ripple-element {
+		animation: flatLoop 450ms;
+		animation-fill-mode: forwards;
+		animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+	}
+}
+
+.mat-tooltip {
+	@include var(background, primary, 0.9);
+	border-radius: 0.25rem !important;
+	@include shade();
+	font-size: 0.8rem;
+}
+
+.ngq_snackbar {
+	@include shade();
+	margin-bottom: 3.5rem !important;
+	border-radius: 0 !important;
+	padding: 0 !important;
+	@include var(background, box-bg);
+
+	&-post,
+	&-put,
+	&-patch {
+		padding: 1rem !important;
+		@include var(background, primary, 0.9);
+		@include var(color, 'white', 1);
+		.mat-simple-snackbar {
+			@include border(border-left, 0.0625rem, solid, accent);
+			padding-left: 1rem;
+		}
+	}
+}
+
+.ngq-card-title-dark.ngq-label-line {
+	@include var(background-color, accent, 0.15);
+}
+
+ngq-button {
+	.button-default {
+		&-dark,
+		&-white-alt,
+		&-success-alt,
+		&-info-alt,
+		&-warning-alt,
+		&-error-alt,
+		&-grey-alt,
+		&-primary-alt,
+		&-accent,
+		&-accent-alt {
+			@extend .ripple-color;
+		}
+		&-primary,
+		&-warning,
+		&-error,
+		&-info,
+		&-grey,
+		&-success {
+			@extend .ripple-flat;
+		}
+	}
+}
+
+.cdk-global-overlay-wrapper {
+	overflow-y: auto;
+}
+
+.ngq_header-link {
+	@extend .ripple-color;
+}
+
+.ngq_search-list,
+.item_type-search {
+	.mat-form-field-infix {
+		padding: 0.2rem 1.25rem 0.4rem 1.25rem !important;
+		width: 100%;
+		height: 2.75rem;
+		box-sizing: border-box;
+	}
+
+	.mat-form-field,
+	.mat-formfield.mat-focused {
+		.mat-form-field-outline {
+			@include var(color, accent, 0.35);
+
+			&-thick {
+				@include var(color, accent, 1);
+			}
+		}
+	}
+}
+
+ngq-root {
+	&.no-events {
+		cursor: not-allowed;
+		.ngq_header_user-menu {
+			cursor: initial;
+		}
+		& *:not(.ngq_header_user-menu *) {
+			pointer-events: none !important;
+		}
+	}
+}

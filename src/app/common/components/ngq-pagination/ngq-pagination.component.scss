@@ -1,0 +1,71 @@
+@import 'mixins';
+:host {
+	flex-basis: 100%;
+	height: auto;
+	justify-content: flex-end;
+	margin: 0.5em 0.5em 0.5em auto;
+}
+
+.ngq_pagination {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	height: 2em;
+
+	&-pages {
+		height: 100%;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		font-family: monospace;
+		margin: 0 0.25em;
+		border-radius: 0.25em;
+		@include var(color, text-color);
+		@include var(background-color, 'white');
+	}
+
+	&-prfw {
+		margin: 0 0.25em;
+		border-radius: 100%;
+	}
+
+	&-shade {
+		& > * {
+			@include shade();
+		}
+	}
+
+	&-item {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 0.9em;
+		padding: 0.1em 0.75em 0;
+		box-sizing: border-box;
+		cursor: pointer;
+		&:first-of-type {
+			border-top-left-radius: 0.25em;
+			border-bottom-left-radius: 0.25em;
+		}
+
+		&:last-of-type {
+			border-top-right-radius: 0.25em;
+			border-bottom-right-radius: 0.25em;
+		}
+
+		&:not(:last-of-type) {
+			@include border(border-right, 1px, solid, app-bg);
+		}
+	}
+
+	&-current {
+		cursor: default;
+		@include gradient(accent, error);
+	}
+
+	&-disabled {
+		cursor: default;
+		@include var(color, app-bg, 0.5);
+	}
+}

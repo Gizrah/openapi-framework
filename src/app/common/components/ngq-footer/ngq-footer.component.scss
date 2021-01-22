@@ -1,0 +1,15 @@
+@import 'mixins';
+
+:host {
+	margin-top: auto;
+	width: 100%;
+	height: 2em;
+	@include var(background, primary);
+	justify-self: stretch;
+	align-self: stretch;
+}
+
+footer {
+	height: 100%;
+	width: 100%;
+}

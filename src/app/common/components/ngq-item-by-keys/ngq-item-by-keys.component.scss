@@ -1,0 +1,61 @@
+@import 'mixins';
+
+:host {
+	display: block;
+	height: 100%;
+	width: 100%;
+
+	&.ngq_ibk-asrow {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: stretch;
+
+		.ngq_ibk-row {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+
+			& > *:not(:first-child) {
+				margin-left: 0.5em;
+			}
+		}
+	}
+
+	&.ngq_ibk-ascolumns {
+		display: grid;
+		column-gap: 1em;
+		width: 100%;
+
+		.ngq_ibk-row {
+			display: grid;
+			width: 100%;
+			column-gap: 1em;
+			align-items: center;
+		}
+	}
+}
+
+.ngq_ibk {
+	&-kv {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+
+		label {
+			@include var(color, accent);
+			font-weight: 400;
+			margin-right: 0.5em;
+		}
+	}
+
+	&-label {
+		display: block;
+		font-weight: 400;
+		@include var(color, accent);
+		margin-bottom: 0.25em;
+	}
+
+	&-row {
+		display: block;
+	}
+}

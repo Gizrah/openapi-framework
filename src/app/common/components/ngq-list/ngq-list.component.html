@@ -1,0 +1,268 @@
+<div class="ngq_list">
+	<div *ngIf="state.options.header && !!state.header" class="ngq_list-header">
+		<ng-template [ngIf]="state.headerselect">
+			<div
+				class="ngq_list-header-wrapper ngq_list-header-active ripple-color"
+				[class.ngq_list-header-selected]="!state.selected.size"
+				matRipple
+				[matRippleDisabled]="!state.selected.size"
+				(click)="doSelect(null)"
+			>
+				<ng-container *ngTemplateOutlet="headerItem"></ng-container>>
+			</div>
+		</ng-template>
+		<ng-template [ngIf]="!state.headerselect">
+			<div class="ngq_list-header-wrapper">
+				<ng-container *ngTemplateOutlet="headerItem"></ng-container>
+			</div>
+		</ng-template>
+	</div>
+
+	<div *ngIf="state.options.search || state.options.ops" class="ngq_list-search">
+		<ngq-search
+			type="list"
+			[operation]="state.operation"
+			[noop]="state.options.search"
+			[focus]="state.options.focus"
+			[clear]="clearSearch$"
+			(search)="doSearch($event)"
+			*ngIf="state.options.search"
+		></ngq-search>
+		<ng-template [ngIf]="state.options.ops && !state.actionbar && !state.edit">
+			<ng-container
+				*ngTemplateOutlet="opButtons; context: { mode: 'mini', size: '1em' }"
+			></ng-container>
+		</ng-template>
+	</div>
+
+	<div *ngIf="state.actionbar" class="ngq_list-actions">
+		<ng-container *ngFor="let action of state.actions; let last = last">
+			<ng-template [ngIf]="action?.length" [ngIfElse]="actionSplit">
+				<ngq-button
+					[icon]="action[1]"
+					[color]="action[3]"
+					[inactive]="state.searchstate || !state[action[0]]"
+					size="0.889em"
+					(click)="doSortAction(action[0])"
+				></ngq-button>
+			</ng-template>
+
+			<ng-template #actionSplit>
+				<div class="ngq_list-actions-split" *ngIf="!last"></div>
+			</ng-template>
+		</ng-container>
+		<ng-template [ngIf]="state.options.ops && !state.edit">
+			<div class="ngq_list-actions-split"></div>
+			<ng-container
+				*ngTemplateOutlet="opButtons; context: { mode: 'normal', size: '0.889em' }"
+			></ng-container>
+		</ng-template>
+	</div>
+
+	<ng-template [ngIf]="state.columns && !state.condensed">
+		<div class="ngq_list-headercols" [style.gridTemplateColumns]="state.headercolscount">
+			<ng-container *ngFor="let headercol of state.headercols">
+				<div class="ngq_list-headercol" [class.ngq_list-headercol-clean]="!headercol[0]">
+					{{ headercol[0] | translink }}
+
+					<div class="ngq_list-headercol-actions" *ngIf="!!headercol[0]">
+						<ngq-button
+							[icon]="headercol[1]"
+							[inactive]="state.searchstate"
+							color="info-alt"
+							mode="mini"
+							(click)="doSortHeader(headercol)"
+						></ngq-button>
+					</div>
+				</div>
+			</ng-container>
+		</div>
+	</ng-template>
+
+	<div
+		class="ngq_list-items"
+		[class.ngq_list-noimage]="!state.avatar"
+		[class.ngq_list-widelist]="!state.condensed"
+		resize
+		(res-width)="doResize($event)"
+		[loader]="state.loaders"
+	>
+		<cdk-virtual-scroll-viewport
+			[itemSize]="state.rowcount * 1.5 + 1 + 'em'"
+			class="ngq_list-container"
+			cdkDropList
+			cdkDropListLockAxis="y"
+			[cdkDropListDisabled]="!state.edit"
+			(cdkDropListDropped)="onDrop($event)"
+		>
+			<ng-container *ngFor="let item of state.itemsstream | async">
+				<ng-container
+					*ngTemplateOutlet="
+						listItem;
+						context: {
+							item: item,
+							selected: state.selected.has(item),
+							active:
+								state.selected.has(item) &&
+								state.options.expand &&
+								!state.options.multiple,
+							subactive: item.__subactive && !item.__state && state.indented,
+							itemstyle: state.itemstyle.get(item)
+						}
+					"
+				></ng-container>
+			</ng-container>
+		</cdk-virtual-scroll-viewport>
+
+		<ngq-button
+			icon="info-circle"
+			mode="mini"
+			class="ngq-devmode-button"
+			color="info"
+			(click)="__log()"
+			matTooltip="::DEV:: Log ListComponent to console"
+			*ngIf="devmode"
+		></ngq-button>
+
+		<ngq-button
+			icon="align-left"
+			mode="mini"
+			class="ngq-devmode-action"
+			color="warning"
+			(click)="__viewkeys()"
+			matTooltip="::DEV:: Change viewkeys"
+			*ngIf="devmode"
+		></ngq-button>
+		<ng-template [ngIf]="devmode && _viewkeys_">
+			<div class="ngq-devmode-field">
+				<textarea textarea-tab #tx>
+					{{ devkeys }}
+				</textarea
+				>
+				<ngq-button icon="save" color="success" (click)="__viewkeys(true, tx.value)">
+					::DEV:: Apply
+				</ngq-button>
+			</div>
+		</ng-template>
+	</div>
+</div>
+
+<ng-template
+	#listItem
+	let-item="item"
+	let-selected="selected"
+	let-active="active"
+	let-subactive="subactive"
+	let-itemstyle="itemstyle"
+>
+	<div
+		class="ngq_list-item ripple-color"
+		[class.ngq_list-item-selected]="selected"
+		[class.ngq_list-item-expand]="active"
+		[class.ngq_list-item-draggable]="state.edit"
+		[style.height]="active ? null : state.rowcount * 1.5 + 1 + 'em'"
+		[ngStyle]="itemstyle"
+		matRipple
+		[matRippleDisabled]="state.edit"
+		cdkDrag
+		cdkDragLockAxis="y"
+		[cdkDragDisabled]="!state.edit"
+		[cdkDragData]="item"
+		[cdkDragPreviewClass]="['ngq_list-item-preview']"
+		(cdkDragStarted)="onDragStart(item)"
+	>
+		<div class="ngq_list-item-placeholder" *cdkDragPlaceholder></div>
+
+		<ng-template [ngIf]="state.indented">
+			<div class="ngq_list-item-indent" [style.width]="item.__indent + 0.5 + 'em'">
+				<ngq-button
+					*ngIf="item.__parent"
+					class="ngq_list-item-toggle"
+					mode="mini"
+					size="0.889em"
+					[icon]="item.__state ? 'angle-down' : 'angle-right'"
+					[color]="item.__state ? 'primary-alt' : 'info-alt'"
+					(click)="doToggle(item)"
+				></ngq-button>
+			</div>
+		</ng-template>
+		<div class="ngq_list-item-content" (click)="doSelect(item)">
+			<ng-template [ngIf]="state.avatar">
+				<ng-container
+					*ngTemplateOutlet="
+						avatarImage;
+						context: {
+							item: item.attributes || item,
+							selected: active
+						}
+					"
+				></ng-container>
+			</ng-template>
+
+			<ngq-item-by-keys
+				[item]="item.attributes || item"
+				[keys]="state.display"
+				[rowstyle]="state.condensed ? 'row' : 'column'"
+			></ngq-item-by-keys>
+		</div>
+
+		<div class="ngq_list-item-subactive" *ngIf="subactive">
+			<ngq-button
+				mode="mini"
+				color="info-alt"
+				icon="circle"
+				(click)="doExpandToChild(item)"
+			></ngq-button>
+		</div>
+
+		<div class="ngq_list-item-subactive" *ngIf="state.selected.has(item) && state.searchstate">
+			<ngq-button
+				mode="mini"
+				color="info-alt"
+				icon="arrow-down"
+				(click)="doScroll(item)"
+			></ngq-button>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #headerItem>
+	<div class="ngq_list-header-item">
+		<div class="ngq_list-header-text">
+			{{ state.header }}
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #avatarImage let-selected="selected" let-item="item">
+	<ngq-avatar
+		[avatar]="item.avatar || item.image"
+		[gender]="item.gender"
+		[size]="selected ? '3em' : '1.75em'"
+		[iconsize]="selected ? '1.5em' : '1em'"
+		class="ngq_list-item-avatar"
+	></ngq-avatar>
+</ng-template>
+
+<ng-template #pagination>
+	<div class="ngq_list-pagination">
+		<ngq-pagination
+			[operation]="state.operation"
+			[shade]="false"
+			(page)="state.page.emit(['array', $event])"
+		></ngq-pagination>
+	</div>
+</ng-template>
+
+<ng-template #opButtons let-mode="mode" let-size="size">
+	<ng-container *ngFor="let op of state.operations">
+		<ngq-button
+			[icon]="op.type === 'post' ? 'plus' : 'trash-o'"
+			[color]="op.type === 'post' ? 'info-alt' : 'error-alt'"
+			[mode]="mode"
+			[size]="size"
+			[inactive]="op.type === 'delete' && !state.selected.size"
+			(click)="doAction(op)"
+		></ngq-button>
+	</ng-container>
+</ng-template>

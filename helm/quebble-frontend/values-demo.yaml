@@ -1,0 +1,9 @@
+env: demo
+app: frontend
+
+
+imagePullPolicy: Always
+
+frontend:
+  replicas: 1 
+  prefix: www

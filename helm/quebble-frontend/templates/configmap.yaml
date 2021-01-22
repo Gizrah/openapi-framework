@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-{{.Values.app}}
+data:
+  # App config selector
+  APP_CONFIG_OBJECT: lucy.config.config
+  
+  # Mysql database
+  DATABASE_URL: "postgres://weDontUseThisButItMustBeSetOtherwiseTheLucyFlipsThePanUit:kh@postgres/lucy"
+  
+  # RabbitMQ Message Queue
+  BROKER_URL: amqp://user:myPasswordTODO@lucy-{{.Values.brand}}-rabbitmq
+
+  # Default runtime
+  ASPNETCORE_ENVIRONMENT: Docker

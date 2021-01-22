@@ -1,0 +1,40 @@
+@import 'mixins';
+
+:host {
+	display: flex;
+	position: relative;
+	justify-content: stretch;
+	align-items: center;
+	background-color: transparent;
+	margin-left: auto;
+	margin-right: -0.5em;
+
+	&.actions-widget {
+		position: absolute;
+		top: 0.4em;
+		right: -0.8em;
+		width: fit-content;
+		height: fit-content;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		flex-direction: column;
+		padding: 0.125em;
+		border-radius: 0.4em;
+		@include border(border, 1px, solid, black, 0.15);
+		@include var(background-color, white);
+		z-index: 2;
+
+		& > *:not(:last-child) {
+			margin-bottom: 0.35em;
+		}
+	}
+
+	.ngq-label-line {
+		flex-grow: 2;
+	}
+
+	ngq-button {
+		flex: 1 0 auto;
+	}
+}

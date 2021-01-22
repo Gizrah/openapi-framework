@@ -1,0 +1,102 @@
+@import 'mixins';
+.event_snackbar {
+	&-info,
+	&-success,
+	&-warning,
+	&-error {
+		padding: 1em;
+		box-sizing: border-box;
+		h3 {
+			@include var(color, 'white');
+		}
+	}
+
+	&-info {
+		@include var(background-color, info);
+	}
+	&-warning {
+		@include var(background-color, warning);
+	}
+	&-error {
+		@include var(background-color, error);
+	}
+	&-success {
+		@include var(background-color, success);
+	}
+
+	&-message {
+		margin-top: 1em;
+		font-weight: 400;
+	}
+
+	&-close {
+		position: absolute;
+		right: 0.25em;
+		top: 0.25em;
+	}
+
+	&-ec {
+		position: relative;
+		box-sizing: border-box;
+		padding: 0.5em 1em;
+		@include var(background-color, primary);
+		@include var(color, accent);
+		font-weight: 400;
+
+		span {
+			font-size: 0.95em;
+			font-family: monospace;
+			display: inline-block;
+			padding: 0 0.25em;
+			border-radius: 0.25em;
+			@include var(background-color, 'white', 0.3);
+			@include var(color, #29ccee);
+			font-weight: 200;
+		}
+	}
+
+	&-description {
+		@include var(color, text-color);
+		margin: 1em;
+		box-sizing: border-box;
+	}
+
+	&-params {
+		padding: 0 1em 1em 1em;
+		margin: 0 1em 1em 1em;
+		box-sizing: border-box;
+		@include border(border, 1px, solid, grey-light);
+		border-radius: 0.25em;
+		@include var(color, text-color);
+	}
+
+	&-param {
+		label {
+			font-weight: 400;
+			@include var(color, primary);
+		}
+
+		span {
+			font-size: 0.85em;
+			font-family: monospace;
+			display: inline-block;
+			padding: 0 0.25em;
+			border-radius: 0.25em;
+			@include var(background-color, primary, 0.75);
+			@include var(color, accent);
+			font-weight: 200;
+		}
+	}
+
+	&-res {
+		margin: 0 1em 1em 1em;
+
+		@include var(color, text-color);
+	}
+
+	&-toggle {
+		position: absolute;
+		right: 1em;
+		top: 0.75em;
+	}
+}

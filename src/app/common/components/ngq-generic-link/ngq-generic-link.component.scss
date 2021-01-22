@@ -1,0 +1,27 @@
+@import 'mixins';
+
+:host {
+	display: inline-block;
+	width: auto;
+	position: relative;
+}
+
+a {
+	text-decoration: none;
+	position: relative;
+	padding-right: 1em;
+
+	&:active,
+	&:hover,
+	&:visited {
+		@include var(color, primary);
+	}
+}
+
+i.fa {
+	font-size: 0.6em;
+	position: absolute;
+	top: calc(50% - 0.3em);
+	right: 0.3em;
+	@include var(color, grey-light);
+}

@@ -1,0 +1,54 @@
+@import 'mixins';
+
+:host {
+	display: block;
+}
+
+.ngq_tile {
+	&-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+		width: 100%;
+
+		& > * {
+			width: 100%;
+		}
+	}
+
+	&-subject {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		margin-top: 0.25em;
+		margin-bottom: 0.75em;
+	}
+
+	&-array {
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+	}
+
+	&-comma {
+		margin-right: 0.5em;
+		margin-left: 0.2em;
+	}
+
+	&-actions {
+		margin-top: 1em;
+		display: flex;
+		align-items: flex-end;
+	}
+
+	&-image {
+		width: calc(100% + 2em);
+		height: 12em;
+		max-height: 40%;
+		margin: -1em -1em 1em -1em;
+		background-size: cover;
+		background-repeat: no-repeat;
+		display: none;
+	}
+}

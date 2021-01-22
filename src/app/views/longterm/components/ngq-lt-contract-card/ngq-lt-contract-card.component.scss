@@ -1,0 +1,98 @@
+@import 'mixins';
+
+:host {
+	--column-width: 600px;
+
+	width: var(--column-width);
+	padding: 2rem;
+	box-sizing: border-box;
+}
+
+.contract {
+	width: 100%;
+	height: auto;
+	padding: 1rem 1.4rem;
+	border-radius: 10px;
+	border: 1px solid var(--grey-light);
+	box-sizing: border-box;
+
+	&__header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-end;
+		border-bottom: 1px solid var(--disabled);
+		padding-bottom: 0.7rem;
+		margin-bottom: 2rem;
+		height: 40px;
+	}
+}
+
+table {
+	width: 100%;
+	border-top: 0;
+	// table-layout: fixed;
+	// overflow-wrap: break-word;
+
+	th.mat-header-cell:first-of-type,
+	td.mat-cell:first-of-type,
+	td.mat-footer-cell:first-of-type {
+		padding-left: 0.6rem;
+		padding-right: 0.6rem;
+	}
+}
+
+.mat-column {
+
+	&-locationName,
+	&-groupName,
+	&-startDate {
+		border-left: 1px solid var(--grey-light);
+		padding-left: 0.6rem;
+		padding-right: 0.6rem;
+	}
+
+	&-startDate {
+		font-size: 0.9rem;
+	}
+}
+
+.table {
+	&__header {
+		width: 100%;
+		padding: 0.3rem 0.6rem;
+		box-sizing: border-box;
+		border-bottom: 1px solid var(--grey-light);
+	}
+
+	&__wrapper {
+		border: 1px solid var(--grey-light);
+		border-bottom: 0;
+	}
+}
+
+.proposal {
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+}
+
+.info {
+	&__row {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		margin-bottom: 1rem;
+	}
+
+	&__row-group {
+		border-bottom: 1px solid var(--grey-light);
+		padding-bottom: 1rem;
+		margin-bottom: 2rem;
+	}
+}
+
+.information {
+	ul {
+		margin: 0;
+		padding-left: 1rem;
+	}
+}

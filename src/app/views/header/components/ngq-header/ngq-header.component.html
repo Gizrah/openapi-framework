@@ -1,0 +1,118 @@
+<header>
+	<img
+		src="/assets/img/logo@3x.png"
+		matTooltip="::DEV:: Log OpenApiService to console"
+		[matTooltipDisabled]="!devmode"
+		(click)="__log()"
+	/>
+	<nav [class.ngq_header-tagged]="!!current">
+		<ng-container *ngFor="let item of menuItems">
+			<ng-container *ngIf="item.subs === 0">
+				<ng-container
+					*ngTemplateOutlet="menuItem; context: { item: item, nested: false }"
+				></ng-container>
+			</ng-container>
+
+			<ng-container *ngIf="item.subs">
+				<ng-container
+					*ngTemplateOutlet="itemWithSubs; context: { item: item, id: item.operationId }"
+				></ng-container>
+			</ng-container>
+		</ng-container>
+	</nav>
+
+	<ngq-header-user></ngq-header-user>
+</header>
+
+<ng-template let-item="item" let-id="id" #itemWithSubs>
+	<div
+		mat-ripple
+		class="ngq_header-tag ripple-color"
+		(click)="toggle(id)"
+		[class.ngq_header-current]="current === id && !!current"
+		[class.ngq_header-activesub]="active === id && current !== id"
+		[class.ngq_header-hiddensub]="active === id && !current"
+	>
+		<span>
+			{{ 'tag.' + item.tag | translink }}
+		</span>
+
+		<i class="fa fa-ellipsis-h" *ngIf="current !== id"></i>
+	</div>
+
+	<div class="ngq_header-sub" *ngIf="current === id" [@fadeInOut]>
+		<ng-container
+			*ngTemplateOutlet="pathItemList; context: { items: nodes.get(id) }"
+		></ng-container>
+	</div>
+</ng-template>
+
+<ng-template let-items="items" #pathItemList>
+	<ng-template [ngIf]="items?.length">
+		<ng-container *ngFor="let item of items; let last = last">
+			<ng-container
+				*ngTemplateOutlet="menuItem; context: { item: item, nested: true, last: last }"
+			></ng-container>
+		</ng-container>
+	</ng-template>
+</ng-template>
+
+<ng-template let-item="item" let-nested="nested" let-last="last" let-tag="tag" #menuItem>
+	<ng-template [ngIf]="item.locked">
+		<ng-container
+			*ngTemplateOutlet="menuItemLinkLocked; context: { item: item, nested: nested }"
+		></ng-container>
+	</ng-template>
+	<ng-template [ngIf]="!item.locked">
+		<ng-container
+			*ngTemplateOutlet="
+				menuItemLink;
+				context: { item: item, nested: nested, id: item.operationId }
+			"
+		></ng-container>
+	</ng-template>
+
+	<div class="ngq_header-divider" *ngIf="!last && nested"></div>
+</ng-template>
+
+<ng-template let-item="item" let-nested="nested" let-id="id" #menuItemLink>
+	<a
+		mat-ripple
+		[class.ngq_header-link]="!nested"
+		[class.ngq_header-nested]="nested"
+		[routerLink]="item.route"
+		routerLinkActive
+		#rla="routerLinkActive"
+		[class.ngq_header-active]="rla.isActive || (active === id && !!active)"
+		(click)="check(nested)"
+	>
+		<ng-container
+			*ngTemplateOutlet="linkTextSpan; context: { custom: item.custom, operation: id }"
+		></ng-container>
+	</a>
+</ng-template>
+
+<ng-template let-item="item" let-nested="nested" #menuItemLinkLocked>
+	<a
+		mat-ripple
+		class="ngq_header-login"
+		[class.ngq_header-link]="!nested"
+		[class.ngq_header-nested]="nested"
+		(click)="doLogin(item)"
+	>
+		<ng-container
+			*ngTemplateOutlet="
+				linkTextSpan;
+				context: { custom: item.custom, operation: item.operationId }
+			"
+		></ng-container>
+
+		<i class="fa fa-lock ngq_header-locked"></i>
+	</a>
+</ng-template>
+
+<ng-template let-custom="custom" let-operation="operation" #linkTextSpan>
+	<span>
+		{{ (!custom ? 'operation.operationId.' + operation : operation) | translink }}
+	</span>
+</ng-template>

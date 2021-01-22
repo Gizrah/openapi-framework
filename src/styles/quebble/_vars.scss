@@ -1,0 +1,12 @@
+@import 'mixins';
+
+:root {
+	@each $name, $value in $defaults {
+		--#{$name}: #{$value};
+	}
+
+	@each $name, $color in $vars {
+		--#{$name}: #{$color};
+		--#{$name}-rgb: #{hexToRGB($color)};
+	}
+}

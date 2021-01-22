@@ -1,0 +1,111 @@
+@import 'mixins';
+
+.item_type {
+	&-titlebar {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		margin-bottom: 0.5em;
+		margin-top: -0.5em;
+
+		label {
+			flex-shrink: 0;
+			font-size: 1.1em;
+			font-weight: 400;
+			@include var(color, primary);
+		}
+	}
+
+	&-array {
+		.item_type-titlebar {
+			margin-top: 0.75em;
+			margin-bottom: 0.75em;
+
+			label {
+				font-size: 1em;
+				@include var(color, accent);
+			}
+		}
+		&-originals {
+			margin-top: -0.5em;
+		}
+	}
+
+	&-search {
+		display: flex;
+		height: 3em;
+		width: 100%;
+		transition: all 0.3s;
+		overflow: hidden;
+		z-index: 4;
+		position: relative;
+		justify-content: space-between;
+		align-items: center;
+
+		.mat-form-field {
+			width: 100%;
+
+			&-infix {
+				position: relative;
+				width: 100%;
+			}
+		}
+
+		&-actions {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: calc(100% + 0.5em);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin: 0.125em -0.25em 0 -0.25em;
+			pointer-events: none;
+
+			ngq-button {
+				pointer-events: all;
+			}
+		}
+
+		&-empty {
+			@include var(color, warning);
+			margin-left: 0.75em;
+		}
+	}
+
+	&-auto {
+		display: block;
+		width: 100%;
+	}
+
+	&-list {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: stretch;
+
+		&-comp {
+			display: block;
+			align-self: stretch;
+			justify-self: stretch;
+			flex-grow: 2;
+		}
+	}
+
+	&-address {
+		.custom-fields-row {
+			margin-bottom: 0.5em;
+
+			.field-row {
+				&-inputs {
+					.field-row-inputs-column {
+						&:not(:first-of-type) {
+							width: 5.5em;
+						}
+					}
+				}
+			}
+		}
+	}
+}

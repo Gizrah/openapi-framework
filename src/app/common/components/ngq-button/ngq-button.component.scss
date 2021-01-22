@@ -1,0 +1,245 @@
+@import 'mixins';
+
+:host {
+	display: inline-block;
+	position: relative;
+	font-size: 1em;
+	margin: 0;
+
+	&.ngq_button {
+		&-notext {
+			.ngq_button {
+				&-icon {
+					margin: 0;
+				}
+
+				&-button {
+					padding: 0;
+					width: 2.25em;
+				}
+			}
+
+			&.ngq_button-mode {
+				&-mini,
+				&-micro {
+					.ngq_button {
+						border-radius: 100%;
+
+						&-button {
+							border-radius: 100%;
+							width: 1.5em;
+							height: 1.5em;
+						}
+
+						&-icon {
+							width: 100%;
+							line-height: auto;
+						}
+					}
+				}
+			}
+		}
+
+		&-mode {
+			&-mini {
+				font-size: 0.8em;
+			}
+
+			&-micro {
+				font-size: 0.65em;
+			}
+
+			&-mini,
+			&-micro {
+				.ngq_button {
+					&-button {
+						height: 2em;
+						font-weight: 600;
+					}
+					&-primary {
+						line-height: 1.2;
+						font-size: 1em;
+					}
+				}
+			}
+		}
+
+		&-shadow {
+			.ngq_button-button {
+				transition: box-shadow 0.2s cubic-bezier(0, 0, 0.2, 1);
+				box-shadow: none;
+
+				&:hover {
+					box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+				}
+
+				&:active {
+					box-shadow: 0px 2px 8px rgba(255, 0, 0, 0.5);
+				}
+			}
+		}
+	}
+}
+
+.fa {
+	&-plus {
+		margin-top: 0.1em;
+	}
+}
+
+.ngq_button {
+	border-radius: 0.25em;
+	position: relative;
+	cursor: pointer;
+
+	&-content {
+		white-space: nowrap;
+	}
+
+	&-button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		outline: none;
+		position: relative;
+		border: 0;
+		height: 2.25em;
+		padding: 0 0.75em;
+		font-weight: 400;
+		border-radius: 0.25em;
+	}
+
+	&-icon {
+		position: relative;
+		height: inherit;
+		width: 1.5em;
+		margin-left: -0.25em;
+		margin-right: 0.25em;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		img {
+			width: 80%;
+			height: 80%;
+		}
+	}
+
+	&-primary {
+		position: relative;
+		font-size: 1em;
+
+		&.button-position {
+			&-top {
+				&-right {
+					clip-path: polygon(
+						0% 0%,
+						50% 0%,
+						46% 13%,
+						47% 24%,
+						52% 32%,
+						56% 37%,
+						62% 42%,
+						70% 46%,
+						80% 46%,
+						90% 48%,
+						100% 50%,
+						100% 100%,
+						0% 100%
+					);
+				}
+
+				&-left {
+					clip-path: polygon(
+						54% 0%,
+						100% 0%,
+						100% 100%,
+						0% 100%,
+						0% 50%,
+						10% 50%,
+						20% 48%,
+						30% 46%,
+						35% 43%,
+						40% 42%,
+						47% 36%,
+						56% 23%,
+						58% 17%
+					);
+				}
+			}
+
+			&-bottom {
+				&-right {
+					clip-path: polygon(
+						0% 0%,
+						100% 0%,
+						100% 60%,
+						90% 60%,
+						81% 62%,
+						76% 65%,
+						73% 66%,
+						69% 69%,
+						63% 75%,
+						59% 81%,
+						57% 84%,
+						58% 100%,
+						0% 100%
+					);
+				}
+				&-left {
+					clip-path: polygon(
+						0% 0%,
+						100% 0%,
+						100% 100%,
+						42% 100%,
+						41% 84%,
+						39% 82%,
+						38% 76%,
+						37% 77%,
+						32% 70%,
+						29% 67%,
+						20% 62%,
+						10% 60%,
+						0% 59%
+					);
+				}
+			}
+		}
+	}
+
+	&-secondary {
+		box-sizing: border-box;
+		font-size: 0.6em;
+		position: absolute;
+		border-radius: 100%;
+		width: 1.1em;
+		height: 1.1em;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		&.button-position {
+			&-top {
+				&-right {
+					top: calc(50% - 1.2em);
+					right: calc(50% - 1.1em);
+				}
+				&-left {
+					top: calc(50% - 1.2em);
+					left: calc(50% - 1.1em);
+				}
+			}
+
+			&-bottom {
+				&-right {
+					bottom: calc(50% - 1.25em);
+					right: calc(50% - 1.25em);
+				}
+				&-left {
+					bottom: calc(50% - 1.25em);
+					left: calc(50% - 1.25em);
+				}
+			}
+		}
+	}
+}

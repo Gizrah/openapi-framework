@@ -1,0 +1,44 @@
+@import 'mixins';
+
+:host {
+	&.ngq_generic {
+		&-row {
+			display: grid;
+			grid-template-columns: [label] 3fr [input] 6fr;
+
+			label.accent {
+				grid-area: label;
+				align-self: self-start;
+			}
+
+			.ngq_generic {
+				&-value {
+					grid-area: input;
+				}
+
+				&-empty {
+					grid-area: input;
+				}
+			}
+		}
+
+		&-list {
+			display: block;
+
+			label.primary {
+				display: block;
+			}
+		}
+	}
+}
+
+.ngq_generic {
+	&-value {
+		font-weight: 200;
+	}
+
+	&-empty {
+		font-weight: 200;
+		font-style: italic;
+	}
+}

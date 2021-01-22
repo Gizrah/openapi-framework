@@ -1,0 +1,60 @@
+@import 'mixins';
+
+.object_type {
+	&-add {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		width: 100%;
+		margin: 0.75em 0 1em 0;
+	}
+
+	&-active,
+	&-invalid {
+		margin-left: -0.5em;
+		margin-right: -0.4em;
+		padding: 0.2em 0.2em 0.2em 0.5em;
+		border-radius: 0.4em;
+	}
+
+	&-active {
+		@include gradient(accent, error, null, -60deg);
+		@include border(border-right, 0.2em, solid, accent);
+	}
+
+	&-invalid {
+		label.accent {
+			@include var(color, error);
+		}
+
+		@include gradient(error, error, 0.3, -60deg);
+		@include border(border-right, 0.2em, solid, error);
+	}
+
+	&-fields {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+
+		& > * {
+			width: 100%;
+		}
+	}
+
+	&-options {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+
+		label {
+			font-size: 1.1em;
+			font-weight: 400;
+			@include var(color, primary);
+		}
+	}
+}

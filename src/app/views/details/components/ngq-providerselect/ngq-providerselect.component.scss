@@ -1,0 +1,39 @@
+@import 'mixins';
+
+:host {
+	margin-bottom: 1em;
+	display: block;
+}
+
+.provider_select {
+	&-frame {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&-button {
+		margin-left: 1em;
+	}
+
+	&-switch,
+	&-active,
+	&-select {
+		padding: 0.5em;
+		border-radius: 0.4em;
+		@include border(border, 1px, solid, app-bg);
+	}
+
+	&-switch {
+		@include var(background-color, info, 0.1);
+		@include var(border-color, info, 0.5);
+	}
+	&-active {
+		@include var(background-color, success, 0.1);
+		@include var(border-color, success, 0.5);
+	}
+	&-select {
+		@include var(background-color, warning, 0.1);
+		@include var(border-color, warning, 0.5);
+	}
+}
